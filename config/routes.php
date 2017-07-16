@@ -1,6 +1,6 @@
 <?php
 return array(
-	'register' => 'register/index',
-	'logout' => 'login/logout',
-	'' => 'login/index',
+    'profile' => 'profile/index',
+	'logout' => 'user/logout',
+	'' => 'user/login',
 );

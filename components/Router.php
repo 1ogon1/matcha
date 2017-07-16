@@ -42,7 +42,8 @@ class Router
 				if (file_exists($controllerFile)) {
 					include_once($controllerFile);
 				}
-//				echo $controllerName;
+
+//				echo $controllerName.'<br>'.$controllerFile;
 
 				// створюємо об'єктб визиваємо метод (action)
 				$controllerObject = new $controllerName;
