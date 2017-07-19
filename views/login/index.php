@@ -9,12 +9,12 @@
                 <h3>Увійти</h3>
                 <form class="form-inline" role="form" action="#" method="post">
                     <div class="form-group">
-                        <label class="sr-only" for="exampleInputEmail2">Email</label>
-                        <input value="<?php echo $email; ?>" name="email" type="email" class="form-control" id="exampleInputEmail2" placeholder="Email">
+                        <label class="sr-only" for="log_email">Email</label>
+                        <input value="<?php echo $email; ?>" name="email" type="email" class="form-control" id="log_email" placeholder="Email">
                     </div>
                     <div class="form-group">
-                        <label class="sr-only" for="exampleInputPassword2">Пароль</label>
-                        <input name="password" type="password" class="form-control" id="exampleInputPassword2" placeholder="Пароль">
+                        <label class="sr-only" for="log_pass">Пароль</label>
+                        <input name="password" type="password" class="form-control" id="log_pass" placeholder="Пароль">
                     </div>
                     <input name="sign_in" type="submit" class="btn btn-warning" value="Sign in">
                 </form>
@@ -25,40 +25,52 @@
 
             <div class="col-lg-4 col-lg- col-md-5 col-sm-5 col-lg-offset-1">
                 <h3 class="header col-sm-offset-3">Ви вперше у нас?</h3>
-                <form class="form-horizontal" role="form" action="#" method="post">
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">Ім'я</label>
+				<form class="form-horizontal" role="form" action="#" method="post">
+					<div class="form-group has-feedback">
+						<label for="login" class="col-sm-3 control-label">Логін</label>
+						<div class="col-sm-9 ">
+							<input value="<?php echo $login; ?>" name="login" type="text" class="form-control" id="login" placeholder="Логін">
+							<span class=""></span>
+						</div>
+					</div>
+                    <div class="form-group has-feedback">
+                        <label for="name" class="col-sm-3 control-label">Ім'я</label>
                         <div class="col-sm-9">
-                            <input value="<?php echo $name; ?>" name="name" type="text" class="form-control" id="inputEmail3" placeholder="Ім'я">
-                        </div>
+                            <input value="<?php echo $name; ?>" name="name" type="text" class="form-control" id="name" placeholder="Ім'я">
+							<span class=""></span>
+						</div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">По-батькові</label>
+                    <div class="form-group has-feedback">
+                        <label for="surname" class="col-sm-3 control-label">Прізвище</label>
                         <div class="col-sm-9">
-                            <input value="<?php echo $surname; ?>" name="surname" type="text" class="form-control" id="inputEmail3" placeholder="По-батькові">
-                        </div>
+                            <input value="<?php echo $surname; ?>" name="surname" type="text" class="form-control" id="surname" placeholder="Прізвище">
+							<span class=""></span>
+						</div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">Email</label>
+                    <div class="form-group has-feedback">
+                        <label for="email" class="col-sm-3 control-label">Email</label>
                         <div class="col-sm-9">
-                            <input value="<?php echo $emailr; ?>" name="email" type="email" class="form-control" id="inputEmail3" placeholder="Email">
-                        </div>
+                            <input value="<?php echo $emailr; ?>" name="email" type="email" class="form-control" id="email" placeholder="Email">
+							<span class=""></span>
+						</div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-3 control-label">Пароль</label>
+                    <div class="form-group has-feedback">
+                        <label for="password" class="col-sm-3 control-label">Пароль</label>
                         <div class="col-sm-9">
-                            <input name="password" type="password" class="form-control" id="inputPassword3" placeholder="Пароль">
-                        </div>
+                            <input name="password" type="password" class="form-control" id="password" placeholder="Пароль">
+							<span class=""></span>
+						</div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-3 control-label">Повторіть</label>
+                    <div class="form-group has-feedback">
+                        <label for="c_password" class="col-sm-3 control-label">Повторіть</label>
                         <div class="col-sm-9">
-                            <input name="c_password" type="password" class="form-control" id="inputPassword3" placeholder="Підтвердження пароля">
-                        </div>
+                            <input name="c_password" type="password" class="form-control" id="c_password" placeholder="Підтвердження пароля" >
+							<span class=""></span>
+						</div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-9">
-                            <input type="submit" name="sign_up" class="btn btn-success" value="Sign in">
+                            <input type="submit" name="sign_up" class="btn btn-success" value="Sign up" id="sign_up">
                         </div>
                     </div>
                 </form>

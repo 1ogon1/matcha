@@ -7,6 +7,7 @@ class UserController
 {
     public function actionLogin()
     {
+    	$login = '';
         $name = '';
         $surname = '';
         $email = '';
@@ -22,13 +23,17 @@ class UserController
             $errors = false;
 
             if (!User::checkEmailLogin($email)) {
-                $errors[] = 'Wrong email';
+                $errors[] = 'Email введено не вірно';
             }
+
+            if (!User::checkActive($email)) {
+            	$errors[] = 'Ваш аккаунт не активовано!';
+			}
 
             if ($errors == false) {
                 $result = User::sign_in($email, $password);
                 if (!$result) {
-                    echo 'Wrong password';
+                    echo 'Пароль введено не вірно';
                 } else {
                     setcookie('id_user', $result);
                     header("location:/profile");
@@ -39,6 +44,7 @@ class UserController
         } //sign in
 
         if (isset($_POST['sign_up'])) {
+        	$login = $_POST['login'];
             $name = $_POST['name'];
             $surname = $_POST['surname'];
             $emailr = $_POST['email'];
@@ -65,8 +71,7 @@ class UserController
             }
 
             if ($errors == false) {
-                $result = User::register_ok($name, $surname, $emailr, $password);
-                echo 'ok';
+				$result = User::register_ok($login, $name, $surname, $emailr, $password);
             } else {
                 echo array_shift($errors);
             }
@@ -75,6 +80,53 @@ class UserController
         require_once (ROOT.'/views/login/index.php');
         return true;
     }
+
+    public function actionActivate()
+	{
+		$email = '';
+		$password = '';
+
+		if (isset($_POST['sign_in'])) {
+			$email = $_POST['email'];
+			$password = $_POST['password'];
+
+			$errors = false;
+
+			if (!User::checkEmailLogin($email)) {
+				$errors[] = 'Email введено не вірно';
+			}
+
+			if (!User::checkActive($email)) {
+				$errors[] = 'Ваш аккаунт не активовано!';
+			}
+
+			if ($errors == false) {
+				$result = User::sign_in($email, $password);
+				if (!$result) {
+					echo 'Пароль введено не вірно';
+				} else {
+					setcookie('id_user', $result);
+					header("location:/profile");
+				}
+			} else {
+				echo array_shift($errors);
+			}
+		} //sign in
+
+		if (isset($_POST['activate'])) {
+			$code = $_POST['code'];
+
+			$email = User::getEmailByCode($code);
+
+			$result = User::activateAccount($email);
+			if ($result) {
+				echo 'Аккаунт активовано!';
+			}
+		} //activate account
+
+		require_once (ROOT.'/views/activate/index.php');
+		return true;
+	}
 
     public function actionLogout()
     {

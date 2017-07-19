@@ -11,18 +11,13 @@
 			<ul class="list-inline" style="color: black">
 				<li><?php echo $_COOKIE['id_user'] . '<br>' ?></li>
 				<li><a href="/logout" style="color: black">Вихід</a></li>
-				<li><a href="/settings" style="color: black">Налаштування</a></li>
-				<li><a href="/geolocation">geo</a></li>
+				<li><a href="/profile" style="color: black">Моя сторінка</a></li>
 			</ul>
 		</div> <!-- header -->
 
 		<div class="row">
 			<div class="col-lg-3 col-md-3 col-sm-3 col-lg-offset-1">
-				<?php
-				require_once(ROOT . '/models/User.php');
-				$res = User::showUserName($_COOKIE['id_user']);
-				?>
-				<img src="/template/images/default-avatar.png">
+				<h1>Налаштування</h1>
 			</div>
 		</div>
 	</div>

@@ -1,5 +1,7 @@
 <?php
 
+require_once (ROOT.'/config/sql.php');
+
 class DataBase
 {
 	public static function getConnection()
