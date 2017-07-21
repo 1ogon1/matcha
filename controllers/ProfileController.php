@@ -17,7 +17,7 @@ class ProfileController
 		return true;
 	}
 
-	public function actionGeolocation()
+	public function actionTest()
 	{
 		require_once (ROOT.'/views/profile/test.php');
 		return true;

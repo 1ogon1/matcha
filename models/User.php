@@ -76,6 +76,7 @@ class User
 			$passwd,
 			$email,
 			'/template/images/default-avatar.png',
+			0,
 			0
 		]);
 		self::sendMail($email, $login);
