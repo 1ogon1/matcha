@@ -141,15 +141,4 @@ class User
 		]);
 		return $result;
 	}
-
-	public static function showUserName($id)
-	{
-		$pdo = DataBase::getConnection();
-		$stmt = $pdo->prepare(SQL_SHOW_NAME);
-		$stmt->execute([$id]);
-		$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		foreach ($res as $row) {
-			echo '<p class="name">' . $row['name'] . ' ' . $row['surname'] . '</p>';
-		}
-	}
 }

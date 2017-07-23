@@ -36,7 +36,7 @@ class UserController
                     echo 'Пароль введено не вірно';
                 } else {
                     setcookie('id_user', $result);
-                    header("location:/profile");
+                    header("location:/profile/$result");
                 }
             } else {
                 echo array_shift($errors);

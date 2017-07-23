@@ -44,6 +44,7 @@ class Router
 				}
 
 //				echo $controllerName.'<br>'.$controllerFile;
+//				print_r($segments);
 
 				// створюємо об'єктб визиваємо метод (action)
 				$controllerObject = new $controllerName;

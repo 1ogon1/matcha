@@ -23,7 +23,7 @@
 						<div class="input-group">
 							<input type="text" class="form-control" disabled id="input1">
 							<span class="input-group-btn">
-        						<input onclick="cancelDisabled('input1')" pwd
+        						<input onclick="cancelDisabled('input1')"
 									   class="btn btn-default" type="submit" value="Edit">
       						</span>
 						</div>
@@ -34,7 +34,8 @@
 						<div class="input-group">
 							<input type="text" class="form-control" disabled id="input2">
 							<span class="input-group-btn">
-        						<input class="btn btn-default" type="submit" value="Edit" onclick="cancelDisabled('input1')">
+        						<input class="btn btn-default" type="submit" value="Edit"
+									   onclick="cancelDisabled('input2')">
       						</span>
 						</div>
 					</div>
@@ -44,7 +45,8 @@
 						<div class="input-group">
 							<input type="text" class="form-control" disabled id="input3">
 							<span class="input-group-btn">
-        						<input class="btn btn-default" type="submit" value="Edit" onclick="cancelDisabled('input1')">
+        						<input class="btn btn-default" type="submit" value="Edit"
+									   onclick="cancelDisabled('input3')">
       						</span>
 						</div>
 					</div>
@@ -54,7 +56,8 @@
 						<div class="input-group">
 							<input type="text" class="form-control" disabled id="input4">
 							<span class="input-group-btn">
-        						<input class="btn btn-default" type="submit" value="Edit" onclick="cancelDisabled('input1')">
+        						<input class="btn btn-default" type="submit" value="Edit"
+									   onclick="cancelDisabled('input4')">
       						</span>
 						</div>
 					</div>
@@ -64,8 +67,16 @@
 						<div class="input-group">
 							<input type="text" class="form-control" disabled id="input5">
 							<span class="input-group-btn">
-        						<input class="btn btn-default" type="submit" value="Edit" onclick="cancelDisabled('input1')">
+        						<input class="btn btn-default" type="submit" value="Edit"
+									   onclick="cancelDisabled('input5')">
       						</span>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group">
+						<div class="col-sm-offset-0 col-sm-9">
+							<input type="submit" name="save" class="btn btn-success" value="Save" id="save">
 						</div>
 					</div>
 				</div>
@@ -73,5 +84,5 @@
 		</div>
 	</div>
 
-<script src="/template/js/script.js"></script>
+	<script src="/template/js/script.js"></script>
 <?php require_once(ROOT . '/views/layout/footer.php'); ?>
