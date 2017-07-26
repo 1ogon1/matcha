@@ -43,7 +43,7 @@ class Router
 					include_once($controllerFile);
 				}
 
-//				echo $controllerName.'<br>'.$controllerFile;
+//				echo $controllerName.'<br>'.$controllerFile.'<br>'.$actionName;
 //				print_r($segments);
 
 				// створюємо об'єктб визиваємо метод (action)

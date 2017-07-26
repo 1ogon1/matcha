@@ -3,21 +3,22 @@
 
         <div class="row back">
             <div class="col-lg-5 col-lg-offset-1 col-md-5 col-sm-5">
-                <h1>Hello</h1>
+                <h1 class="header"><a href="/">Welcome</a></h1>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6" style="margin-bottom: 40px">
                 <h3>Увійти</h3>
-                <form class="form-inline" role="form" action="#" method="post">
+                <div class="form-inline">
                     <div class="form-group">
                         <label class="sr-only" for="log_email">Email</label>
-                        <input value="<?php echo $email; ?>" name="email" type="email" class="form-control" id="log_email" placeholder="Email">
+                        <input value="" name="email" type="email" class="form-control" id="log_email" placeholder="Email">
                     </div>
                     <div class="form-group">
                         <label class="sr-only" for="log_pass">Пароль</label>
                         <input name="password" type="password" class="form-control" id="log_pass" placeholder="Пароль">
                     </div>
-                    <input name="sign_in" type="submit" class="btn btn-warning" value="Sign in">
-                </form>
+                    <input id="sign_in" name="sign_in" type="submit" class="btn btn-warning" value="Sign in">
+                </div>
+                <div class="log_mes"></div>
             </div>
         </div> <!-- header -->
 
@@ -25,32 +26,33 @@
 
             <div class="col-lg-4 col-lg- col-md-5 col-sm-5 col-lg-offset-1">
                 <h3 class="header col-sm-offset-3">Ви вперше у нас?</h3>
-				<form class="form-horizontal" role="form" action="#" method="post">
+				<div class="form-horizontal">
+                    <div class="mes"></div>
 					<div class="form-group has-feedback">
 						<label for="login" class="col-sm-3 control-label">Логін</label>
 						<div class="col-sm-9 ">
-							<input value="<?php echo $login; ?>" name="login" type="text" class="form-control" id="login" placeholder="Логін">
+							<input value="" name="login" type="text" class="form-control" id="login" placeholder="Логін">
 							<span class=""></span>
 						</div>
 					</div>
                     <div class="form-group has-feedback">
                         <label for="name" class="col-sm-3 control-label">Ім'я</label>
                         <div class="col-sm-9">
-                            <input value="<?php echo $name; ?>" name="name" type="text" class="form-control" id="name" placeholder="Ім'я">
+                            <input value="" name="name" type="text" class="form-control" id="name" placeholder="Ім'я">
 							<span class=""></span>
 						</div>
                     </div>
                     <div class="form-group has-feedback">
                         <label for="surname" class="col-sm-3 control-label">Прізвище</label>
                         <div class="col-sm-9">
-                            <input value="<?php echo $surname; ?>" name="surname" type="text" class="form-control" id="surname" placeholder="Прізвище">
+                            <input value="" name="surname" type="text" class="form-control" id="surname" placeholder="Прізвище">
 							<span class=""></span>
 						</div>
                     </div>
                     <div class="form-group has-feedback">
                         <label for="email" class="col-sm-3 control-label">Email</label>
                         <div class="col-sm-9">
-                            <input value="<?php echo $emailr; ?>" name="email" type="email" class="form-control" id="email" placeholder="Email">
+                            <input value="" name="email" type="email" class="form-control" id="email" placeholder="Email">
 							<span class=""></span>
 						</div>
                     </div>
@@ -73,7 +75,7 @@
                             <input type="submit" name="sign_up" class="btn btn-success" value="Sign up" id="sign_up">
                         </div>
                     </div>
-                </form>
+                </div>
             </div> <!-- register form -->
 
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-9 col-lg-offset-1 col-sm-offset-0">
@@ -85,4 +87,7 @@
 
         </div> <!-- main block -->
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
+    <script src="/template/js/script.js"></script>
 <?php require_once(ROOT.'/views/layout/footer.php');?>

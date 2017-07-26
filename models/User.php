@@ -14,6 +14,7 @@ class User
 			$email
 		]);
 
+
 		$headers = "Content-Type: text/html; charset=utf-8" . "\r\n";
 		$subject = "Matcha Account Activation";
 		$r1 = "<html><head><style>.button { background-color: #646464 ; border: none;color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer;}</style><head>";
@@ -64,31 +65,35 @@ class User
 		return false;
 	}
 
-	public static function register_ok($login, $name, $surname, $email, $password)
+	public static function register_ok($user)
 	{
-		$passwd = hash("whirlpool", $password);
+		$passwd = hash("whirlpool", $user['password']);
 		$pdo = DataBase::getConnection();
 		$stmt = $pdo->prepare(SQL_ADD_USER);
 		$result = $stmt->execute([
-			$login,
-			$name,
-			$surname,
+            $user['login'],
+            $user['name'],
+            $user['surname'],
 			$passwd,
-			$email,
+            $user['email'],
 			'/template/images/default-avatar.png',
 			0,
-			0
+            0,
+            '',
+            '2000.01.01'
 		]);
-		self::sendMail($email, $login);
+		self::sendMail($user['email'], $user['login']);
 		return $result;
 	}
 
-	public static function checkLogin($name, $surname)
+	public static function checkLogin($user)
 	{
-		if (preg_match("/^[a-zA-Z]+$/", $name) &&
-			preg_match("/^[a-zA-Z]+$/", $surname) &&
-			strlen($name) >= 1 &&
-			strlen($surname) >= 1
+		if (preg_match("/^[a-zA-Z]+$/", $user['name']) &&
+			preg_match("/^[a-zA-Z]+$/", $user['surname']) &&
+//            preg_match("/^[a-zA-Z]+$/",$login) &&
+			strlen($user['name']) >= 1 &&
+			strlen($user['surname']) >= 1
+//            strlen($user['login']) >= 1
 		) {
 			return true;
 		}
@@ -139,6 +144,10 @@ class User
 			':email' => $email,
 			':active' => 1
 		]);
+		if ($result) {
+		    $stmt = $pdo->prepare(SQL_DELETE_ACTIVE_CODE);
+		    $stmt->execute([$email]);
+        }
 		return $result;
 	}
 }

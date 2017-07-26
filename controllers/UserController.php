@@ -5,79 +5,74 @@ require_once (ROOT.'/config/sql.php');
 
 class UserController
 {
+    public function actionIndex()
+    {
+        require_once (ROOT.'/views/login/index.php');
+        return true;
+    }
+
     public function actionLogin()
     {
-    	$login = '';
-        $name = '';
-        $surname = '';
-        $email = '';
-        $emailr = '';
-        $password = '';
-        $conf_pw = '';
-
         $result = false;
-        if (isset($_POST['sign_in'])) {
-            $email = $_POST['email'];
-            $password = $_POST['password'];
+        $errors = false;
+        $email = $_POST['email'];
+        $password = $_POST['password'];
 
-            $errors = false;
+        if (!User::checkEmailLogin($email)) {
+            $errors[] = 'Email введено не вірно';
+        }
 
-            if (!User::checkEmailLogin($email)) {
-                $errors[] = 'Email введено не вірно';
-            }
+        if (!User::checkActive($email)) {
+            $errors[] = 'Ваш аккаунт не активовано!';
+        }
 
-            if (!User::checkActive($email)) {
-            	$errors[] = 'Ваш аккаунт не активовано!';
-			}
-
-            if ($errors == false) {
-                $result = User::sign_in($email, $password);
-                if (!$result) {
-                    echo 'Пароль введено не вірно';
-                } else {
-                    setcookie('id_user', $result);
-                    header("location:/profile/$result");
-                }
+        if ($errors == false) {
+            $result = User::sign_in($email, $password);
+            if (!$result) {
+                echo 'Пароль введено не вірно';
             } else {
-                echo array_shift($errors);
+                setcookie('id_user', $result);
+//                header("location:/profile/$result");
+                echo $result;
             }
-        } //sign in
+        } else {
+            echo array_shift($errors);
+        }
+        return true;
+    }
 
-        if (isset($_POST['sign_up'])) {
-        	$login = $_POST['login'];
-            $name = $_POST['name'];
-            $surname = $_POST['surname'];
-            $emailr = $_POST['email'];
-            $password = $_POST['password'];
-            $conf_pw = $_POST['c_password'];
+    public function actionRegister()
+    {
+        $user = [
+            'login' => $_POST['login'],
+            'name' => $_POST['name'],
+            'surname' => $_POST['surname'],
+            'email' => $_POST['email'],
+            'password' => $_POST['password'],
+            'c_password' => $_POST['c_password'],
 
-            $errors = false;
+        ];
+        $errors = false;
+        $result = false;
+        if (!User::checkLogin($user)) {
+            $errors[] = 'Не допустимі символи в імені/прізвищу';
+        }
+        if (!User::checkEmailExists($user['email'])) {
+            $errors[] = 'Даний email існує';
+        }
+        if (!User::checkPassword($user['password'])) {
+            $errors[] = 'Пароль містить 6-25 символів';
+        }
+        if (strcmp($user['password'], $user['c_password'])) {
+            $errors[] = 'Паролі не співпадають';
+        }
+        if ($errors == false) {
+            $result = User::register_ok($user);
+            echo 'Email відправлено';
+        } else {
+            echo array_shift($errors);
+        }
 
-            if (!User::checkLogin($name, $surname)) {
-                $errors[] = 'Name and surname must consists only characters(Aa-Zz)';
-            }
-            if (strcmp($password, $conf_pw)) {
-                $errors[] = 'Passwords do not match';
-            }
-            if (!User::checkPassword($password)) {
-                $errors[] = 'Password must consists 6 - 25 symbols';
-            }
-            if (!User::checkEmail($emailr)) {
-                $errors[] = 'Wrong email';
-            }
-
-            if (!User::checkEmailExists($emailr)) {
-                $errors[] = 'This email already exists';
-            }
-
-            if ($errors == false) {
-				$result = User::register_ok($login, $name, $surname, $emailr, $password);
-            } else {
-                echo array_shift($errors);
-            }
-        } //register
-
-        require_once (ROOT.'/views/login/index.php');
         return true;
     }
 
@@ -86,47 +81,41 @@ class UserController
 		$email = '';
 		$password = '';
 
-		if (isset($_POST['sign_in'])) {
-			$email = $_POST['email'];
-			$password = $_POST['password'];
-
-			$errors = false;
-
-			if (!User::checkEmailLogin($email)) {
-				$errors[] = 'Email введено не вірно';
-			}
-
-			if (!User::checkActive($email)) {
-				$errors[] = 'Ваш аккаунт не активовано!';
-			}
-
-			if ($errors == false) {
-				$result = User::sign_in($email, $password);
-				if (!$result) {
-					echo 'Пароль введено не вірно';
-				} else {
-					setcookie('id_user', $result);
-					header("location:/profile");
-				}
-			} else {
-				echo array_shift($errors);
-			}
-		} //sign in
-
-		if (isset($_POST['activate'])) {
-			$code = $_POST['code'];
-
-			$email = User::getEmailByCode($code);
-
-			$result = User::activateAccount($email);
-			if ($result) {
-				echo 'Аккаунт активовано!';
-			}
-		} //activate account
+//		if (isset($_POST['activate'])) {
+//			$code = $_POST['code'];
+//
+//			$email = User::getEmailByCode($code);
+//
+//			$result = User::activateAccount($email);
+//			if ($result) {
+//				echo 'Аккаунт активовано!';
+//			} else {
+//			    echo 'Не вірний код';
+//            }
+//		} //activate account
 
 		require_once (ROOT.'/views/activate/index.php');
 		return true;
 	}
+
+	public function actionSend_code()
+    {
+        $email = '';
+        $password = '';
+        $result = false;
+        $code = $_POST['code'];
+
+        $email = User::getEmailByCode($code);
+        if ($email != '') {
+            $result = User::activateAccount($email);
+        }
+        if ($result) {
+            echo 'Аккаунт активовано!';
+//            echo $result;
+        } else {
+            echo 'Не вірний код';
+        }
+    }
 
     public function actionLogout()
     {

@@ -2,6 +2,15 @@
 	margin-bottom: 30px;
 }
 
+.header a {
+	color: white;
+	text-decoration: none;
+}
+
+.header a:hover {
+	color: black;
+}
+
 .back {
 	background-color: #2aabd2;
 }
@@ -15,8 +24,39 @@
 	white-space: pre;
 }
 
+.mrg_bot {
+	margin-bottom: 10px;
+}
+
 #map {
 	margin: 20px 0 10px 0;
 	width: 350px;
 	height: 250px
+}
+.href {
+	margin-top: 1%;
+}
+.href li a {
+	font-size: 20px;
+	color: white;
+	text-decoration: none;
+}
+
+.href li a:hover {
+	color: black;
+}
+
+.message_block {
+	height: 25px;
+	font-size: 20px;
+	margin: 0;
+	padding: 0;
+}
+
+#input6 {
+	resize: none;
+}
+
+#input6, #in6 {
+	height: 100px;
 }
