@@ -8,8 +8,15 @@
 
 		<div class="row">
 			<div class="col-lg-3 col-md-3 col-sm-3 col-lg-offset-1">
-				<?php echo '<p class="name">' . $row['name'] . ' ' . $row['surname'] . '</p>'; ?>
-				<img src="<?php echo $row['avatar'] ?>">
+				<?php echo '<p class="name">' . $row['name'] . ' ' . $row['surname'];
+                    if ($userStatus->format('%I%') >= 1) {
+                        echo '<span style="color: red;"> Оффлайн</span>';
+                    } else {
+                        echo '<span style="color: green;"> Онлайн</span>';
+                    }
+                    echo '</p>';
+				?>
+				<img src="<?php echo $row['avatar'] ?>" width="200px" height="250px">
                 <p><?php echo $row['birthday']?></p>
                 <p><?php echo $row['info']?></p>
             </div>
@@ -27,4 +34,5 @@
 	<script async defer
 			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQilzegM8ynJ47loUVsKUzDv8WRTy2FNY&callback=initMap"
 			type="text/javascript"></script>
+    <script src="/template/js/online.js"></script>
 <?php require_once(ROOT . '/views/layout/footer.php'); ?>

@@ -5,7 +5,7 @@ const SQL_CREATE_DATABASE = '
 ';
 
 const SQL_CREATE_USER_TABLE = '
-	CREATE TABLE IF NOT EXISTS user (
+	CREATE TABLE IF NOT EXISTS `user` (
 		id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
 		login VARCHAR(100) NOT NULL,
 		name VARCHAR(100) NOT NULL,
@@ -16,7 +16,8 @@ const SQL_CREATE_USER_TABLE = '
 		active INT(1) NOT NULL,
 		gender INT(1) NOT NULL,
 		info VARCHAR(255) NOT NULL,
-		birthday DATE NOT NULL
+		birthday DATE NOT NULL,
+        status TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 		)
 ';
 
@@ -26,6 +27,24 @@ const SQL_CREATE_ACTIVATE_TABLE = '
 		code VARCHAR(10) NOT NULL,
 		email VARCHAR(100) NOT NULL
 		)
+';
+
+const SQL_CREATE_TABLE_IMAGE = '
+    CREATE TABLE IF NOT EXISTS image (
+        id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+        id_user INT(10) NOT NULL,
+        name_img TEXT NOT NULL,
+        src TEXT NOT NULL
+    )
+';
+
+const SQL_CREATE_TABLE_VISITOR = '
+    CREATE TABLE IF NOT EXISTS visitor (
+        id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+        id_user INT(10) NOT NULL,
+        id_visitor INT(10) NOT NULL,
+        status INT(1) NOT NULL
+    )
 ';
 
 const SQL_ADD_USER = '
@@ -66,4 +85,48 @@ const SQL_DELETE_ACTIVE_CODE = '
 
 const SQL_USER_UPDATE = '
 	UPDATE user SET login = :login, name = :name, surname = :surname, email = :email, birthday = :birthday, info = :info  WHERE id = :id
+';
+
+const SQL_ADD_IMAGE = '
+    INSERT INTO image (id_user, name_img, src) VALUES (?, ?, ?)
+';
+
+const SQL_SHOW_USER_IMAGE = '
+    SELECT * FROM image WHERE id_user = ?
+';
+
+const SQL_UPDATE_AVATAR = '
+    UPDATE user SET avatar = :avatar WHERE id = :id
+';
+
+const SQL_DELETE_IMAGE = '
+    DELETE FROM image WHERE id = ?
+';
+
+const SQL_SET_ONLINE = '
+    UPDATE user SET status = :status WHERE id = :id
+';
+
+const SQL_GET_STATUS = '
+    SELECT status FROM user WHERE id = ?
+';
+
+const SQL_ADD_VISITOR = '
+    INSERT INTO visitor (id_user, id_visitor, status) VALUES (?, ?, ?)
+';
+
+const SQL_GET_VISITOR = '
+    SELECT id_visitor FROM visitor WHERE id_user = ? AND status = 0
+';
+
+const SQL_GET_VISITOR_LOAD = '
+    SELECT id_visitor FROM visitor WHERE id_user = ?
+';
+
+const SQL_GET_VISITOR_CHECK = '
+    SELECT * FROM visitor WHERE id_user = ? AND id_visitor = ? 
+';
+
+const SQL_SEW_VISITOR = '
+    UPDATE visitor SET status = :status WHERE id_user = :id_user
 ';

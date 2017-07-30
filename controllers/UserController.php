@@ -17,6 +17,7 @@ class UserController
         $errors = false;
         $email = $_POST['email'];
         $password = $_POST['password'];
+        $time = $_POST['time'];
 
         if (!User::checkEmailLogin($email)) {
             $errors[] = 'Email введено не вірно';
@@ -31,8 +32,8 @@ class UserController
             if (!$result) {
                 echo 'Пароль введено не вірно';
             } else {
+                User::updateStatus($result, $time);
                 setcookie('id_user', $result);
-//                header("location:/profile/$result");
                 echo $result;
             }
         } else {
@@ -81,19 +82,6 @@ class UserController
 		$email = '';
 		$password = '';
 
-//		if (isset($_POST['activate'])) {
-//			$code = $_POST['code'];
-//
-//			$email = User::getEmailByCode($code);
-//
-//			$result = User::activateAccount($email);
-//			if ($result) {
-//				echo 'Аккаунт активовано!';
-//			} else {
-//			    echo 'Не вірний код';
-//            }
-//		} //activate account
-
 		require_once (ROOT.'/views/activate/index.php');
 		return true;
 	}
@@ -111,7 +99,6 @@ class UserController
         }
         if ($result) {
             echo 'Аккаунт активовано!';
-//            echo $result;
         } else {
             echo 'Не вірний код';
         }

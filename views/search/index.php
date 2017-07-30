@@ -10,7 +10,7 @@
         $stmt->execute();
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($res as $row) {
-            echo "<img src='$row[avatar]' style='width: 100px; height: 100px'>";
+            echo "<img src='$row[avatar]' style='width: 100px; height: 120px'>";
             echo "<p><a href='/profile/$row[id]'>$row[login]</a></p>";
         }
         ?>

@@ -1,5 +1,10 @@
 <?php
 return array(
+    'visitorload' => 'profile/visitorload',
+    'visitor' => 'profile/visitor',
+    'online' => 'profile/online',
+    'delete' => 'profile/delete',
+    'set' => 'profile/avatar',
     'save' => 'profile/save',
 	'search' => 'search/index',
 	'settings' => 'profile/settings',

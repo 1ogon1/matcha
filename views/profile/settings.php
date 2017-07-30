@@ -80,16 +80,38 @@
                         </div>
                     </div>
 				</div>
-                <div class="col-lg-3 col-lg-offset-0">
-                    <form id="uploadform" name="uploadform" action="" method="post" enctype="multipart/form-data">
-                        <input type="file" name="file" id="file">
-                        <input type="submit" name="upload" id="upload" value="Додати">
-                    </form>
-                    <img id="preview" src="">
+                <div class="col-lg-6 col-lg-offset-0">
+                    <div class="row">
+                        <form id="uploadform" name="uploadform" action="" method="post" enctype="multipart/form-data">
+                            <input class="btn btn-warning" type="file" name="file" id="file">
+                            <input class="btn btn-success" type="submit" name="upload" id="upload" value="Додати">
+                            <input class="btn btn-danger" type="submit" id="cancel" value="Скасувати">
+                        </form>
+                        <div class="preview_img">
+                            <img id="preview" src=""">
+                        </div>
+                    </div>
+                    <div class="row show_user_img">
+                        <?php foreach ($photo as $row) : ?>
+                            <div class="block_img">
+                                <img src="<?php echo $row['src']; ?>" data-text="<?php echo $row['id']; ?>">
+                                <div class="set_avatar">
+                                    Встановити як аватар
+                                </div>
+                                <div class="delete"><span>Видалити</span></div>
+                            </div>
+                        <?php endforeach; ?>
+                        <div class="msg_ava"></div>
+                    </div>
                 </div>
 		</div>
 	</div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
 	<script src="/template/js/script.js"></script>
+<script>
+//    setInterval(function () {
+//        $('.alert').css('background-color', 'yellow');
+//    }, 3000);
+</script>
 <?php require_once(ROOT . '/views/layout/footer.php'); ?>

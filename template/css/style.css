@@ -16,8 +16,12 @@
 }
 
 .name {
-	font-size: 20px;
+	font-size: 25px;
 	margin-top: 40px;
+}
+
+.name span {
+	font-size: 15px;
 }
 
 .tooltip-inner {
@@ -40,6 +44,7 @@
 	font-size: 20px;
 	color: white;
 	text-decoration: none;
+	cursor: pointer;
 }
 
 .href li a:hover {
@@ -59,4 +64,96 @@
 
 #input6, #in6 {
 	height: 100px;
+}
+
+.preview_img {
+	width:100px;
+	height:100px;
+	border-radius: 50%;
+}
+
+#preview {
+	border-radius: 50%;
+}
+.show_user_img {
+	width: auto;
+	height: auto;
+	display: inline-block;
+}
+
+.block_img {
+	width: 130px;
+	height: 130px;
+	display: inline-block;
+	margin-right: 15px;
+	position: relative;
+	border-radius: 50%;
+}
+
+.block_img img {
+	width:130px;
+	height:130px;
+	border-radius: 50%;
+	position: absolute;
+}
+
+.block_img:hover .set_avatar {
+	display: block;
+}
+
+.block_img:hover .delete {
+	display: block;
+}
+
+.set_avatar {
+	text-align: center;
+	cursor: pointer;
+	font-size: 15px;
+	background-color: rgba(0, 0, 0, 0.5);
+	position: absolute;
+	width: 130px;
+	height: 130px;
+	color: greenyellow;
+	display: none;
+	bottom: 0;
+	opacity: 1;
+	padding-top: 60%;
+	border-radius: 50%;
+}
+
+#cancel {
+	display: none;
+}
+
+.delete {
+	color: red;
+	position:absolute;
+	border-bottom: 2px rgba(0, 0, 0, 0.5) solid;
+	width: 130px;
+	height: 65px;
+	top: 0;
+	font-size: 15px;
+	padding: 20% 0 0 25%;
+	display: none;
+	cursor: pointer;
+}
+
+#visitor {
+	display: none;
+}
+
+.link:hover #visitor{
+	display: block;
+	position: absolute;
+	background-color: white;
+	color: black;
+	z-index: 1;
+}
+
+.user {
+	display: block;
+	width: 150px;
+	height: 40px;
+	cursor: pointer;
+	border-bottom: 1px dimgrey solid;
 }

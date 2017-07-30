@@ -150,4 +150,15 @@ class User
         }
 		return $result;
 	}
+
+	public static function updateStatus($id, $time)
+    {
+        $pdo = DataBase::getConnection();
+
+        $stmt = $pdo->prepare(SQL_SET_ONLINE);
+        $stmt->execute([
+            ':id' => $id,
+            ':status' => $time
+        ]);
+    }
 }
