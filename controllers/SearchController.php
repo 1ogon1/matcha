@@ -2,7 +2,7 @@
 
 require_once (ROOT.'/models/Search.php');
 require_once (ROOT.'/models/Profile.php');
-require_once (ROOT.'/config/sql.php');
+require_once(ROOT . '/config/sql.php');
 
 class SearchController
 {

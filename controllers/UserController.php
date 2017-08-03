@@ -1,7 +1,7 @@
 <?php
 
 require_once (ROOT.'/models/User.php');
-require_once (ROOT.'/config/sql.php');
+require_once(ROOT . '/config/sql.php');
 
 class UserController
 {

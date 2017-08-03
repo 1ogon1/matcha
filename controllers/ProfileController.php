@@ -2,7 +2,7 @@
 
 require_once (ROOT.'/models/Profile.php');
 require_once (ROOT.'/models/User.php');
-require_once (ROOT.'/config/sql.php');
+require_once(ROOT . '/config/sql.php');
 
 class ProfileController
 {
@@ -56,8 +56,11 @@ class ProfileController
             'name' => $_POST['name'],
             'surname' => $_POST['surname'],
             'email' => $_POST['email'],
-            'birthday' => $_POST['birthday'],
-            'info' => $_POST['info']
+            'gender' => $_POST['gender'],
+            'sex_pref' => $_POST['sex_pref'],
+            'biography' => $_POST['biography'],
+            'address' => $_POST['address'],
+            'birthday' => $_POST['birthday']
         ];
 	    $errors = false;
 	    if (!User::checkLogin($user)) {
@@ -69,10 +72,10 @@ class ProfileController
         if ($errors == false) {
 	        Profile::updateInformation($user);
 	        echo 'Зміни збережено';
+//            echo $user['address'];
         } else {
 	        echo array_shift($errors);
         }
-//        require_once (ROOT.'/views/profile/settings.php');
 		return true;
 	}
 
@@ -117,7 +120,17 @@ class ProfileController
         ]);
         $res = $stmt->rowCount();
         if ($res) {
-            echo 'ok1';
+            $id = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($id as $row) {
+                $stmt = $pdo->prepare(SQL_SHOW_NAME);
+                $stmt->execute([$row['id_visitor']]);
+                $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($res as $rows) {
+                    echo '<div class="user"><a href="/profile/'.$rows['id'].'"><img src="'.$rows['avatar'].'">'.
+                        $rows['login'].
+                        '</a></div>';
+                }
+            }
             $stmt = $pdo->prepare(SQL_SEW_VISITOR);
             $stmt->execute([
                 ':id_user' => $_COOKIE['id_user'],
@@ -141,9 +154,12 @@ class ProfileController
                 $stmt->execute([$row['id_visitor']]);
                 $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($res as $rows) {
-                    echo '<div class="user"><img src="'.$rows['avatar'].'" style="width: 20px; height: 20px">'.
-                         $rows['login'].
-                         '</div>';
+//                    echo '<div class="user" data-text="'.$rows['id'].'"><a href="/profile/'.$rows['id'].'"><img src="'.$rows['avatar'].'">'.
+//                         $rows['login'].
+//                         '</a></div>';
+                    echo '<div class="user" data-text="'.$rows['id'].'"><a href="/profile/'.$rows['id'].'" name="'.$rows['id'].'"><img src="'.$rows['avatar'].'">'.
+                        $rows['login'].
+                        '</a></div>';
                 }
             }
             $stmt = $pdo->prepare(SQL_SEW_VISITOR);
@@ -152,5 +168,52 @@ class ProfileController
                 ':status' => 1
             ]);
         }
+    }
+
+    public function actionDelvisit()
+    {
+        $pdo = DataBase::getConnection();
+
+        $stmt = $pdo->prepare(SQL_DELETE_VISITOR);
+        $stmt->execute([
+            $_COOKIE['id_user']
+        ]);
+        $res = $stmt->rowCount();
+        if ($res) {
+            echo 'ok';
+        }
+    }
+
+    public function actionMore()
+    {
+        $status = Profile::setStatus();
+        $user = Profile::showUser($_COOKIE['id_user']);
+        $user_info = Profile::showUserInfo($_COOKIE['id_user']);
+        $tag = Profile::getTagById($_COOKIE['id_user']);
+
+        require_once ROOT.'/views/profile/more_settings.php';
+        return true;
+    }
+
+    public function actionAddtag()
+    {
+        $pdo = DataBase::getConnection();
+
+        $stmt = $pdo->prepare(SQL_ADD_TAG);
+        $stmt->execute([
+            $_COOKIE['id_user'],
+            $_POST['tag']
+        ]);
+        $id = $pdo->lastInsertId();
+        echo '<li class="tag_gel" value="'.$id.'"><a>#'.$_POST['tag'].'</a></li>';
+    }
+
+    public function actionDeletetag()
+    {
+        $pdo = DataBase::getConnection();
+
+        $stmt = $pdo->prepare(SQL_DELETE_TAG_BY_ID);
+        $stmt->execute([$_POST['tag']]);
+//        echo $stmt->rowCount();
     }
 }

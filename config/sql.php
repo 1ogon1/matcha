@@ -14,11 +14,20 @@ const SQL_CREATE_USER_TABLE = '
 		email VARCHAR(100) NOT NULL,
 		avatar VARCHAR(100) NOT NULL,
 		active INT(1) NOT NULL,
-		gender INT(1) NOT NULL,
-		info VARCHAR(255) NOT NULL,
-		birthday DATE NOT NULL,
         status TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 		)
+';
+
+const SQL_CREATE_TABLE_USER_INFO = '
+    CREATE TABLE IF NOT EXISTS user_info (
+        id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+        id_user INT(10) NOT NULL,
+        gender INT(1) NOT NULL,
+        sex_pref INT(1) NOT NULL,
+        biography TEXT NOT NULL,
+        birthday DATE NOT NULL,
+        address VARCHAR(255) NOT NULL
+    )
 ';
 
 const SQL_CREATE_ACTIVATE_TABLE = '
@@ -47,8 +56,16 @@ const SQL_CREATE_TABLE_VISITOR = '
     )
 ';
 
+const SQL_CREATE_TABLE_TAG = '
+    CREATE TABLE IF NOT EXISTS tag (
+        id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+        id_user INT(10) NOT NULL,
+        tag VARCHAR(255) NOT NULL
+    )
+';
+
 const SQL_ADD_USER = '
-	INSERT INTO user (login, name, surname, password, email, avatar, active, gender, info, birthday) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+	INSERT INTO user (login, name, surname, password, email, avatar, active) VALUES (?, ?, ?, ?, ?, ?, ?)
 ';
 
 const SQL_CHECK_EMAIL = '
@@ -84,7 +101,11 @@ const SQL_DELETE_ACTIVE_CODE = '
 ';
 
 const SQL_USER_UPDATE = '
-	UPDATE user SET login = :login, name = :name, surname = :surname, email = :email, birthday = :birthday, info = :info  WHERE id = :id
+	UPDATE user SET login = :login, name = :name, surname = :surname, email = :email  WHERE id = :id
+';
+
+const SQL_USER_UPDATE_INFO = '
+    UPDATE user_info SET gender = :gender, sex_pref = :sex_pref, biography = :biography, birthday = :birthday, address = :address  WHERE id_user = :id_user
 ';
 
 const SQL_ADD_IMAGE = '
@@ -129,4 +150,28 @@ const SQL_GET_VISITOR_CHECK = '
 
 const SQL_SEW_VISITOR = '
     UPDATE visitor SET status = :status WHERE id_user = :id_user
+';
+
+const SQL_DELETE_VISITOR = '
+    DELETE FROM visitor WHERE id_user = ?
+';
+
+const SQL_ADD_INFO = '
+    INSERT INTO user_info (id, id_user, gender, sex_pref, biography, birthday, address) VALUES (?, ?, ?, ?, ?, ?, ?)
+';
+
+const SELECT_USER_INFO = '
+    SELECT * FROM user_info WHERE id_user = ?
+';
+
+const SQL_ADD_TAG = '
+    INSERT INTO tag (id_user, tag) VALUES (?, ?)
+';
+
+const SQL_GET_TAG_BY_ID = '
+    SELECT * FROM tag WHERE id_user = ?
+';
+
+const SQL_DELETE_TAG_BY_ID = '
+    DELETE FROM tag WHERE id = ? 
 ';

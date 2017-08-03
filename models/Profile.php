@@ -12,6 +12,16 @@ class Profile
 		return $res;
 	}
 
+	public static function showUserInfo($id)
+    {
+        $pdo = DataBase::getConnection();
+
+        $stmt = $pdo->prepare(SELECT_USER_INFO);
+        $stmt->execute([$id]);
+        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $res;
+    }
+
 	public static function updateInformation($personal_info)
     {
         $pdo = DataBase::getConnection();
@@ -21,9 +31,16 @@ class Profile
             ':login' => $personal_info['login'],
             ':name' => $personal_info['name'],
             ':surname' => $personal_info['surname'],
-            ':email' => $personal_info['email'],
+            ':email' => $personal_info['email']
+        ]);
+        $stmt = $pdo->prepare(SQL_USER_UPDATE_INFO);
+        $stmt->execute([
+            ':id_user' => $_COOKIE['id_user'],
+            ':gender' => $personal_info['gender'],
+            ':sex_pref' => $personal_info['sex_pref'],
+            ':biography' => $personal_info['biography'],
             ':birthday' => $personal_info['birthday'],
-            ':info' => $personal_info['info']
+            ':address' => $personal_info['address']
         ]);
     }
 
@@ -144,5 +161,14 @@ class Profile
                 0
             ]);
         }
+    }
+
+    public static function getTagById($id)
+    {
+        $pdo = DataBase::getConnection();
+
+        $stmt = $pdo->prepare(SQL_GET_TAG_BY_ID);
+        $stmt->execute([$id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

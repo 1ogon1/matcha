@@ -1,5 +1,6 @@
 <?php
 return array(
+    'delvisit' => 'profile/delvisit',
     'visitorload' => 'profile/visitorload',
     'visitor' => 'profile/visitor',
     'online' => 'profile/online',
@@ -7,6 +8,9 @@ return array(
     'set' => 'profile/avatar',
     'save' => 'profile/save',
 	'search' => 'search/index',
+	'addtag' => 'profile/addtag',
+    'deletetag' => 'profile/deletetag',
+	'more' => 'profile/more',
 	'settings' => 'profile/settings',
     'profile/([0-9]+)' => 'profile/index/$1',
 	'activate' => 'user/activate',

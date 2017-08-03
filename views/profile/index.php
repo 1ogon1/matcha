@@ -2,7 +2,7 @@
 
 	<div class="container-fluid">
 
-        <?php require_once (ROOT.'/views/layout/menu.php'); ?> <!-- header -->
+        <?php require_once(ROOT . '/views/layout/menu.php'); ?> <!-- header -->
 
 			<?php foreach ($user as $row) : ?>
 
@@ -17,8 +17,6 @@
                     echo '</p>';
 				?>
 				<img src="<?php echo $row['avatar'] ?>" width="200px" height="250px">
-                <p><?php echo $row['birthday']?></p>
-                <p><?php echo $row['info']?></p>
             </div>
 			<?php endforeach; ?>
 			<div class="col-lg-3 col-md-3 col-sm-3 col-lg-offset-2">

@@ -2,7 +2,7 @@
 
     <div class="container-fluid">
 
-        <?php require_once (ROOT.'/views/layout/menu.php'); ?> <!-- header -->
+        <?php require_once(ROOT . '/views/layout/menu.php'); ?> <!-- header -->
 
         <?php
         $pdo = DataBase::getConnection();
@@ -15,4 +15,6 @@
         }
         ?>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
+    <script src="/template/js/online.js"></script>
 <?php require_once(ROOT . '/views/layout/footer.php'); ?>

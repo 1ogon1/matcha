@@ -12,6 +12,7 @@ $('#sign_in').click(function () {
         password: $('#log_pass').val(),
         time: datetime
     };
+    // console.log(params['time']);
     $.post('/login', params, function (data) {
         if ($.isNumeric(data)) {
             $(location).attr('href', '/profile/'+data);
@@ -42,7 +43,7 @@ $('.set_avatar').click(function () {
     var params = {
         src: img
     };
-    console.log(img);
+    // console.log(img);
     $.post('/set', params, function (data) {
         if (data == 'Аватар встановленно') {
             $('.msg_ava').text(data).css('color', 'green');
@@ -65,6 +66,21 @@ $(document).ready(function () {
         });
     });
 }); //show upload image
+
+$('.block_img')
+    .mouseenter(function () {
+        // console.log('eee boy');
+        var src = $(this).children('img').attr('src');
+        $('#image').attr('src', src);
+        $('#image').attr('display', 'block').fadeIn(500);
+        // console.log(src);
+    })
+    .mouseleave(function () {
+        // console.log('eee bitch');
+        var src = $(this).children('img').attr('src');
+        $('#image').attr('display', 'none').fadeOut(10);
+        // $('#image').attr('src', '');
+    });
 
 $('#sign_up').click(function () {
     $('#sign_up').attr('disabled', true);
@@ -112,19 +128,23 @@ $('#save').click(function () {
         name: $('#input2').val(),
         surname: $('#input3').val(),
         email: $('#input4').val(),
-        birthday: $('#input5').val(),
-        info: $('#input6').val()
+        gender: $('#input5').val(),
+        sex_pref: $('#input6').val(),
+        address: $('#input7').val(),
+        birthday: $('#input8').val(),
+        biography: $('#input9').val()
     };
     $.post("/save", params, function (data) {
+        // console.log(data);
         if (data === "Зміни збережено") {
             $('.message').text(data).show().fadeOut(2000);
             $('.message').css('color', 'green');
-            for (var i = 1; i <= 6; i++) {
+            for (var i = 1; i <= 9; i++) {
                 $('#input' + i).attr('disabled', true);
             }
         } else {
             $('.message').text(data).show().fadeOut(5000);
-            $('.mesage').css('color', 'red');
+            $('.message').css('color', 'red');
         }
         $('#save').attr('disabled', false);
     });
@@ -132,6 +152,46 @@ $('#save').click(function () {
 
 $('.btn').on('click', function () {
     var input = $(this).data('text');
+    if (input !== 'input10') {
+        $('#'+input).attr('disabled', false);
+    }
+    else {
+        var id = $('#input10').val();
+        // console.log(param);
+        if (id === '') {
+            $('#input10').parent().addClass('has-error');
+            $('.glyphicon').addClass('glyphicon-remove');
+        } else {
+            var param = {
+                tag: $('#input10').val()
+            };
+            $('#input10').parent().addClass('has-success');
+            $('.glyphicon').addClass('glyphicon-ok');
+            $.post('/addtag', param, function (data) {
+                if (data) {
+                    $('#tag').append(data);
+                    $(location).attr('href', '/more');
+                } else{
+                    $('#tag').append('<li>error</li>').css('color', 'red').fadeOut(3000);
+                }
+            });
+        }
+    }
+}); //settings input disable false, add tag
 
-    $('#'+input).attr('disabled', false);
-}); //settings input disable false
+$('#input10').focus(function () {
+    $('#input10').parent().removeClass('has-error');
+    $('#input10').parent().removeClass('has-success');
+    $('.glyphicon').removeClass('glyphicon-remove');
+    $('.glyphicon').removeClass('glyphicon-ok');
+}); //remove classes
+
+$('.tag_gel').click(function () {
+    var li = $(this);
+    var param = {
+        tag: $(this).attr('value')
+    };
+    $.post('/deletetag', param, function () {
+        li.fadeOut(500, function () {$(this).remove();});
+    });
+}); //delete tag

@@ -3,6 +3,22 @@
 class User
 {
 
+    public static function addInfo($id)
+    {
+        $pdo = DataBase::getConnection();
+
+        $stmt = $pdo->prepare(SQL_ADD_INFO);
+        $stmt->execute([
+            NULL,
+            $id,
+            0,
+            0,
+            '',
+            '1970-1-1',
+            ''
+        ]);
+    }
+
 	public static function sendMail($email, $login)
 	{
 		$nb = rand(1000000, 9999999);
@@ -13,7 +29,6 @@ class User
 			$nb,
 			$email
 		]);
-
 
 		$headers = "Content-Type: text/html; charset=utf-8" . "\r\n";
 		$subject = "Matcha Account Activation";
@@ -77,11 +92,10 @@ class User
 			$passwd,
             $user['email'],
 			'/template/images/default-avatar.png',
-			0,
-            0,
-            '',
-            '2000.01.01'
+			0
 		]);
+		$id = $pdo->lastInsertId();
+		self::addInfo($id);
 		self::sendMail($user['email'], $user['login']);
 		return $result;
 	}
