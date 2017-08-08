@@ -1,23 +1,109 @@
 <?php require_once(ROOT . '/views/layout/head.php'); ?>
 
-	<div class="container-fluid">
+	<div class="container-fluid" xmlns="http://www.w3.org/1999/html">
 
-        <?php require_once(ROOT . '/views/layout/menu.php'); ?> <!-- header -->
+		<?php require_once(ROOT . '/views/layout/menu.php'); ?> <!-- header -->
 
-			<?php foreach ($user as $row) : ?>
+		<?php foreach ($user
+
+		as $row) : ?>
 
 		<div class="row">
-			<div class="col-lg-3 col-md-3 col-sm-3 col-lg-offset-1">
-				<?php echo '<p class="name">' . $row['name'] . ' ' . $row['surname'];
-                    if ($userStatus->format('%I%') >= 1) {
-                        echo '<span style="color: red;"> Оффлайн</span>';
-                    } else {
-                        echo '<span style="color: green;"> Онлайн</span>';
-                    }
-                    echo '</p>';
-				?>
-				<img src="<?php echo $row['avatar'] ?>" width="200px" height="250px">
-            </div>
+			<div class="col-lg-5 col-md-5 col-sm-3 col-lg-offset-1">
+				<div class="row">
+					<?php echo '<p class="name">' . $row['name'] . ' ' . $row['surname'];
+					if ($userStatus->format('%I%') >= 1) {
+						echo '<span style="color: red;"> Оффлайн ' . $userStatus->format('%I%') . '</span>';
+					} else {
+						echo '<span style="color: green;"> Онлайн ' . $userStatus->format('%I%') . '</span>';
+					}
+					echo '</p>';
+					?>
+				</div>
+				<div class="row">
+					<div class="col-lg-4 col-md-3 col-sm-3">
+						<img src="<?php echo $row['avatar'] ?>" width="200px" height="250px">
+					</div>
+					<div class="col-lg-8 col-md-3 col-sm-3 col-lg-offset-0">
+
+						<?php foreach ($userInfo as $rows) : ?>
+
+							<p>
+								<?php
+								$now = new DateTime('now');
+								$last = new DateTime($rows['birthday']);
+								$status = date_diff($now, $last);
+								echo $status->format('%Y%') . ' роки';
+								?>
+							</p>
+							<p>
+								<?php
+								$rows['gender'];
+								?>
+							</p>
+							<p>
+								<?php
+								if ($rows['sex_pref'] == 1) {
+									echo 'Чоловік';
+								} else if ($rows['sex_pref'] == 2) {
+									echo 'Жінка';
+								}
+								?>
+							</p>
+							<p>
+								<?php
+								if (!empty($rows['address'])) {
+									echo $rows['address'];
+								}
+								?>
+							</p>
+							<p>
+								<?php
+								if (!empty($rows['biography'])) {
+									echo $rows['biography'];
+								}
+								?>
+							</p>
+
+						<?php endforeach; ?>
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+
+						<?php foreach ($userTag as $rowss) : ?>
+
+							<a href="/search/tag/id">#<?php echo $rowss['tag']; ?></a>
+
+						<?php endforeach; ?>
+
+					</div>
+				</div>
+
+				<?php if ($_COOKIE['id_user'] !== $id) : ?>
+
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="block_user" id="block" data-text="<?php echo $id; ?>" <?php if ($block) {echo 'style="display: none"'; } ?>>
+								<strong>Блокувати</strong>
+							</div>
+							<div class="unblock_user" id="unblock" data-text="<?php echo $id; ?>" <?php if (!$block) {echo 'style="display: none"'; } ?>>
+								<strong>Розблокувати</strong>
+							</div>
+							<div class="likes" id="like" data-text="<?php echo $id; ?>" <?php if ($like) {echo 'style="display: none"'; } ?>>
+								<strong>Вподобати</strong>
+							</div>
+							<div class="unlikes" id="unlike" data-text="<?php echo $id; ?>" <?php if (!$like) {echo 'style="display: none"'; } ?>>
+								<strong>Видалити</strong>
+							</div>
+						</div>
+					</div>
+
+				<?php endif; ?>
+
+			</div>
+
 			<?php endforeach; ?>
 			<div class="col-lg-3 col-md-3 col-sm-3 col-lg-offset-2">
 				<div id="map"></div>
@@ -27,10 +113,12 @@
 		</div>
 	</div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
 	<script src="/template/js/geolocation.js"></script>
 	<script async defer
 			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQilzegM8ynJ47loUVsKUzDv8WRTy2FNY&callback=initMap"
 			type="text/javascript"></script>
-    <script src="/template/js/online.js"></script>
+	<script src="/template/js/online.js"></script>
+	<script src="/template/js/script.js"></script>
+
 <?php require_once(ROOT . '/views/layout/footer.php'); ?>

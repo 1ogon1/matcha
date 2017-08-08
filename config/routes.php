@@ -1,5 +1,9 @@
 <?php
 return array(
+	'unlike' => 'profile/unlike',
+	'like' => 'profile/like',
+	'unblock' => 'profile/unblock',
+	'block' => 'profile/block',
     'delvisit' => 'profile/delvisit',
     'visitorload' => 'profile/visitorload',
     'visitor' => 'profile/visitor',
@@ -18,5 +22,6 @@ return array(
 	'logout' => 'user/logout',
 	'register' => 'user/register',
 	'login' => 'user/login',
+//	'.+' => 'error/index',
 	'' => 'user/index',
 );

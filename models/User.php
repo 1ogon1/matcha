@@ -3,21 +3,21 @@
 class User
 {
 
-    public static function addInfo($id)
-    {
-        $pdo = DataBase::getConnection();
+	public static function addInfo($id)
+	{
+		$pdo = DataBase::getConnection();
 
-        $stmt = $pdo->prepare(SQL_ADD_INFO);
-        $stmt->execute([
-            NULL,
-            $id,
-            0,
-            0,
-            '',
-            '1970-1-1',
-            ''
-        ]);
-    }
+		$stmt = $pdo->prepare(SQL_ADD_INFO);
+		$stmt->execute([
+			NULL,
+			$id,
+			0,
+			0,
+			'',
+			'1970-1-1',
+			''
+		]);
+	}
 
 	public static function sendMail($email, $login)
 	{
@@ -86,11 +86,11 @@ class User
 		$pdo = DataBase::getConnection();
 		$stmt = $pdo->prepare(SQL_ADD_USER);
 		$result = $stmt->execute([
-            $user['login'],
-            $user['name'],
-            $user['surname'],
+			$user['login'],
+			$user['name'],
+			$user['surname'],
 			$passwd,
-            $user['email'],
+			$user['email'],
 			'/template/images/default-avatar.png',
 			0
 		]);
@@ -159,20 +159,20 @@ class User
 			':active' => 1
 		]);
 		if ($result) {
-		    $stmt = $pdo->prepare(SQL_DELETE_ACTIVE_CODE);
-		    $stmt->execute([$email]);
-        }
+			$stmt = $pdo->prepare(SQL_DELETE_ACTIVE_CODE);
+			$stmt->execute([$email]);
+		}
 		return $result;
 	}
 
 	public static function updateStatus($id, $time)
-    {
-        $pdo = DataBase::getConnection();
+	{
+		$pdo = DataBase::getConnection();
 
-        $stmt = $pdo->prepare(SQL_SET_ONLINE);
-        $stmt->execute([
-            ':id' => $id,
-            ':status' => $time
-        ]);
-    }
+		$stmt = $pdo->prepare(SQL_SET_ONLINE);
+		$stmt->execute([
+			':id' => $id,
+			':status' => $time
+		]);
+	}
 }

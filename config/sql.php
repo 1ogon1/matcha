@@ -64,6 +64,22 @@ const SQL_CREATE_TABLE_TAG = '
     )
 ';
 
+const SQL_CREATE_TABLE_BLOCK_USER = '
+	CREATE TABLE IF NOT EXISTS block (
+		id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		id_user INT(10) NOT NULL,
+        id_block_user INT(10) NOT NULL
+	)
+';
+
+const SQL_CREATE_TABLE_LIKE_USER = '
+	CREATE TABLE IF NOT EXISTS likes (
+		id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		id_user INT(10) NOT NULL,
+        id_like_user INT(10) NOT NULL
+	)
+';
+
 const SQL_ADD_USER = '
 	INSERT INTO user (login, name, surname, password, email, avatar, active) VALUES (?, ?, ?, ?, ?, ?, ?)
 ';
@@ -153,7 +169,7 @@ const SQL_SEW_VISITOR = '
 ';
 
 const SQL_DELETE_VISITOR = '
-    DELETE FROM visitor WHERE id_user = ?
+    DELETE FROM visitor WHERE id_user = ? AND id_visitor = ?
 ';
 
 const SQL_ADD_INFO = '
@@ -174,4 +190,32 @@ const SQL_GET_TAG_BY_ID = '
 
 const SQL_DELETE_TAG_BY_ID = '
     DELETE FROM tag WHERE id = ? 
+';
+
+const SQL_GET_TAG_BY_NAME = '
+	SELECT * FROM tag  WHERE tag = ? AND id_user = ?
+';
+
+const SQL_GET_BLOCK = '
+	SELECT * FROM block WHERE id_user = ? AND id_block_user = ? 
+';
+
+const SQL_BLOCK_USER = '
+	INSERT INTO block (id_user, id_block_user) VALUES (?, ?)
+';
+
+const SQL_UNBLOCK_USER = '
+	DELETE FROM block WHERE id_user = ? AND id_block_user = ?
+';
+
+const SQL_GET_LIKE = '
+	SELECT * FROM likes WHERE id_user = ? AND id_like_user = ?
+';
+
+const SQL_LIKE_USER = '
+	INSERT INTO likes (id_user, id_like_user) VALUES (?, ?)
+';
+
+const SQL_UNLIKE_USER = '
+	DELETE FROM likes WHERE id_user = ? AND id_like_user = ?
 ';

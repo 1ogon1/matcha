@@ -1,5 +1,5 @@
 <div class="modal-footer">
-<!--	<hr>-->
+	<!--	<hr>-->
 	<p>Matcha &copy;rkonoval 2017</p>
 </div>
 <footer>
