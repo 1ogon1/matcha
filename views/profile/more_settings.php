@@ -127,7 +127,7 @@
 							<div class="col-sm-offset-0 col-lg-2">
 								<input type="submit" name="save" class="btn btn-success" value="Зберегти" id="save">
 							</div>
-							<div class="col-sm-offset-0 col-lg-1">
+							<div class="col-sm-offset-1 col-lg-2">
 								<input type="submit" name="" class="btn btn-success" value="Змінити пароль"
 									   id="change">
 							</div>

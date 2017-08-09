@@ -14,7 +14,7 @@ const SQL_CREATE_USER_TABLE = '
 		email VARCHAR(100) NOT NULL,
 		avatar VARCHAR(100) NOT NULL,
 		active INT(1) NOT NULL,
-        status TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        status INT(11)
 		)
 ';
 
@@ -218,4 +218,8 @@ const SQL_LIKE_USER = '
 
 const SQL_UNLIKE_USER = '
 	DELETE FROM likes WHERE id_user = ? AND id_like_user = ?
+';
+
+const SQL_CHANGE_PASSWORD = '
+	UPDATE user SET password = :password WHERE id = :id
 ';

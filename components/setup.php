@@ -14,4 +14,84 @@ class DataBase
 
 		return $pdo;
 	}
+
+	public static function setUp()
+	{
+		self::createDataBase();
+		self::createUserTable();
+		self::createUserInfo();
+		self::createActivateTable();
+		self::createTableImage();
+		self::createTableVisitor();
+		self::createTableTag();
+		self::createBlockUser();
+		self::createLikeUser();
+
+	}
+
+	private static function createDataBase()
+	{
+		$paranmPath = ROOT.'/config/database.php';
+		$params = include $paranmPath;
+
+		$pdo = new PDO("mysql:host={$params['host']}", $params['user'], $params['password']);
+		$pdo->exec("CREATE DATABASE IF NOT EXISTS {$params['dbname']}");
+		$pdo->exec("use {$params['dbname']}");
+	}
+
+	private static function createUserTable()
+	{
+		$pdo = self::getConnection();
+
+		$pdo->exec(SQL_CREATE_USER_TABLE);
+	}
+
+	private static function createUserInfo()
+	{
+		$pdo = self::getConnection();
+
+		$pdo->exec(SQL_CREATE_TABLE_USER_INFO);
+	}
+
+	private static function createActivateTable()
+	{
+		$pdo = self::getConnection();
+
+		$pdo->exec(SQL_CREATE_ACTIVATE_TABLE);
+	}
+
+	private static function createTableImage()
+	{
+		$pdo = self::getConnection();
+
+		$pdo->exec(SQL_CREATE_TABLE_IMAGE);
+	}
+
+	private static function createTableVisitor()
+	{
+		$pdo = self::getConnection();
+
+		$pdo->exec(SQL_CREATE_TABLE_VISITOR);
+	}
+
+	private static function createTableTag()
+	{
+		$pdo = self::getConnection();
+
+		$pdo->exec(SQL_CREATE_TABLE_TAG);
+	}
+
+	private static function createBlockUser()
+	{
+		$pdo = self::getConnection();
+
+		$pdo->exec(SQL_CREATE_TABLE_BLOCK_USER);
+	}
+
+	private static function createLikeUser()
+	{
+		$pdo = self::getConnection();
+
+		$pdo->exec(SQL_CREATE_TABLE_LIKE_USER);
+	}
 }

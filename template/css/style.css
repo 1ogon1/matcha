@@ -231,3 +231,8 @@
 #passwd {
 	display: none;
 }
+
+#reset {
+	text-decoration: none;
+	color: black;
+}

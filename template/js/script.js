@@ -269,11 +269,12 @@ $('#save_pw').click(function () {
 	};
 	$.post('/changepw', params, function (data) {
 		if (data == 'ok') {
-			$('#pw_save').text('пароль змінено');
+			$('#pw_save').text('Пароль змінено');
 			$('#pw_save').css('color', 'green');
 		} else {
 			$('#pw_save').text(data);
 			$('#pw_save').css('color', 'red');
 		}
 	});
-});
+}); //change password
+

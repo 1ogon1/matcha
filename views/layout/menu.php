@@ -5,6 +5,7 @@
 
 	<ul class="nav nav-pills href">
 		<li><a href="/profile/<?php echo $_COOKIE['id_user'] ?>">Моя сторінка</a></li>
+		<li><a href="/message">Повідомлення</a></li>
 		<li><a href="/search">Пошук</a></li>
 		<li><a href="/settings">Налаштування</a></li>
 		<li class="link"><a>Гості</a>
@@ -14,11 +15,12 @@
 		<li><a href="/logout">Вихід</a></li>
 		<li>
 			<?php
-			if ($status->format('%I%') > 1) {
-				echo '<span style="color: red;">Оффлайн ' . $status->format('%I%') . '</span>';
+			if ($status >= 60) {
+				echo '<span style="color: red;"> Оффлайн</span>';
 			} else {
-				echo '<span style="color: greenyellow;">Онлайн ' . $status->format('%I%') . '</span>';
+				echo '<span style="color: greenyellow;"> Онлайн</span>';
 			}
+			echo '</p>';
 			?>
 		</li>
 	</ul>

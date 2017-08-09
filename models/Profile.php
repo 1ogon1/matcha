@@ -123,9 +123,8 @@ class Profile
 		$stmt->execute([$_COOKIE['id_user']]);
 		$date = $stmt->fetch(PDO::FETCH_ASSOC);
 		$st = $date['status'];
-		$now = new DateTime('now');
-		$last = new DateTime($st);
-		$status = date_diff($now, $last);
+		$time = time();
+		$status = $time - $st;
 		return $status;
 	}
 
@@ -137,9 +136,8 @@ class Profile
 		$stmt->execute([$id]);
 		$date = $stmt->fetch(PDO::FETCH_ASSOC);
 		$st = $date['status'];
-		$now = new DateTime('now');
-		$last = new DateTime($st);
-		$status = date_diff($now, $last);
+		$time = time();
+		$status = $time - $st;
 		return $status;
 	}
 
@@ -206,5 +204,28 @@ class Profile
 			$id
 		]);
 		return $stmt->rowCount();
+	}
+
+	public static function changePassword($password)
+	{
+		$pdo = DataBase::getConnection();
+
+		$stmt = $pdo->prepare(SQL_CHANGE_PASSWORD);
+		$stmt->execute([
+			':id' => $_COOKIE['id_user'],
+			':password' => $password
+		]);
+	}
+
+	public static function setOnline()
+	{
+		$pdo = DataBase::getConnection();
+
+		$time = time();
+		$stmt = $pdo->prepare(SQL_SET_ONLINE);
+		$stmt->execute([
+			':id' => $_COOKIE['id_user'],
+			':status' => $time
+		]);
 	}
 }

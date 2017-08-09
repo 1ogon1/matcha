@@ -1,5 +1,7 @@
 <?php
 return array(
+	'message' => 'message/index',
+	'changepw' => 'profile/changepw',
 	'unlike' => 'profile/unlike',
 	'like' => 'profile/like',
 	'unblock' => 'profile/unblock',
@@ -19,6 +21,7 @@ return array(
     'profile/([0-9]+)' => 'profile/index/$1',
 	'activate' => 'user/activate',
 	'send_code' => 'user/send_code',
+	'reset' => 'user/reset',
 	'logout' => 'user/logout',
 	'register' => 'user/register',
 	'login' => 'user/login',

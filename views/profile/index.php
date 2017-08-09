@@ -12,10 +12,10 @@
 			<div class="col-lg-5 col-md-5 col-sm-3 col-lg-offset-1">
 				<div class="row">
 					<?php echo '<p class="name">' . $row['name'] . ' ' . $row['surname'];
-					if ($userStatus->format('%I%') >= 1) {
-						echo '<span style="color: red;"> Оффлайн ' . $userStatus->format('%I%') . '</span>';
+					if ($userStatus >= 60) {
+						echo '<span style="color: red;"> Оффлайн</span>';
 					} else {
-						echo '<span style="color: green;"> Онлайн ' . $userStatus->format('%I%') . '</span>';
+						echo '<span style="color: green;"> Онлайн</span>';
 					}
 					echo '</p>';
 					?>
@@ -113,12 +113,12 @@
 		</div>
 	</div>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
-	<script src="/template/js/geolocation.js"></script>
-	<script async defer
-			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQilzegM8ynJ47loUVsKUzDv8WRTy2FNY&callback=initMap"
-			type="text/javascript"></script>
-	<script src="/template/js/online.js"></script>
-	<script src="/template/js/script.js"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
 <?php require_once(ROOT . '/views/layout/footer.php'); ?>
+<script src="/template/js/geolocation.js"></script>
+<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQilzegM8ynJ47loUVsKUzDv8WRTy2FNY&callback=initMap"
+		type="text/javascript"></script>
+<script src="/template/js/online.js"></script>
+<script src="/template/js/script.js"></script>

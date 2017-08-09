@@ -1,33 +1,7 @@
-$(document)
-	.on('click', function () {
-		var currentdate = new Date();
-		var datetime = currentdate.getFullYear() + "-"
-			+ (currentdate.getMonth() + 1) + "-"
-			+ currentdate.getDate() + " "
-			+ currentdate.getHours() + ":"
-			+ currentdate.getMinutes() + ":"
-			+ currentdate.getSeconds();
-		var params = {
-			time: datetime
-		};
-		$.post('/online', params, function () {
-
-		});
-	})
-	.ready(function () {
-		var currentdate = new Date();
-		var datetime = currentdate.getFullYear() + "-"
-			+ (currentdate.getMonth() + 1) + "-"
-			+ currentdate.getDate() + " "
-			+ currentdate.getHours() + ":"
-			+ currentdate.getMinutes() + ":"
-			+ currentdate.getSeconds();
-		var params = {
-			time: datetime
-		};
-		$.post('/online', params, function () {
-		});
+$(document).on('click', function () {
+	$.post('/online', function () {
 	});
+});
 
 setInterval(function () {
 	$.post('/visitor', function (data) {

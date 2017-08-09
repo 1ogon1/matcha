@@ -109,4 +109,10 @@ class UserController
 		setcookie('id_user', '', time() - 3600);
 		header('location:/');
 	}
+
+	public function actionReset()
+	{
+		require_once ROOT.'/views/reset/index.php';
+		return true;
+	}
 }

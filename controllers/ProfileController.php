@@ -9,6 +9,7 @@ class ProfileController
 	public function actionIndex($id)
 	{
 		$user = Profile::showUser($id);
+		self::actionOnline();
 		$status = Profile::setStatus();
 		$userStatus = Profile::userStatus($id);
 		$userInfo = Profile::showUserInfo($id);
@@ -27,6 +28,7 @@ class ProfileController
 	public function actionSettings()
 	{
 		$personal_info = null;
+		self::actionOnline();
 		$user = Profile::showUser($_COOKIE['id_user']);
 		$photo = Profile::showUserImage();
 		$status = Profile::setStatus();
@@ -104,15 +106,9 @@ class ProfileController
 //        }
 	}
 
-	public function actionOnline()
+	public static function actionOnline()
 	{
-		$pdo = DataBase::getConnection();
-
-		$stmt = $pdo->prepare(SQL_SET_ONLINE);
-		$stmt->execute([
-			':id' => $_COOKIE['id_user'],
-			':status' => $_POST['time']
-		]);
+		Profile::setOnline();
 	}
 
 	public function actionVisitor()
@@ -188,6 +184,7 @@ class ProfileController
 
 	public function actionMore()
 	{
+		self::actionOnline();
 		$status = Profile::setStatus();
 		$user = Profile::showUser($_COOKIE['id_user']);
 		$user_info = Profile::showUserInfo($_COOKIE['id_user']);
@@ -278,6 +275,21 @@ class ProfileController
 		]);
 		if ($stmt->rowCount()) {
 			echo 'ok';
+		}
+	}
+
+	public function actionChangepw()
+	{
+		if (!strcmp($_POST['pw'], $_POST['c_pw'])) {
+			if (User::checkPassword($_POST['pw'])) {
+				$passwd = hash("whirlpool", $_POST['pw']);
+				Profile::changePassword($passwd);
+				echo 'ok';
+			} else {
+				echo 'Не коректний пароль';
+			}
+		} else {
+			echo 'Паролі не співпадають';
 		}
 	}
 }

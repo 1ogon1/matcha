@@ -19,7 +19,8 @@
 				</div>
 				<input id="sign_in" name="sign_in" type="submit" class="btn btn-warning" value="Sign in">
 			</div>
-			<div class="log_mes"></div>
+			<div class=""><a href="/reset" id="reset">Забув пароль</a><span class="log_mes"></span></div>
+
 		</div>
 	</div> <!-- header -->
 
