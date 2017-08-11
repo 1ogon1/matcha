@@ -19,10 +19,10 @@ class UserController
 		$password = $_POST['password'];
 		$time = $_POST['time'];
 
-		if (!User::checkEmailLogin($email)) {
+
+		if (!User::checkEmailLogin($_POST['email'])) {
 			$errors[] = 'Email введено не вірно';
 		}
-
 		if (!User::checkActive($email)) {
 			$errors[] = 'Ваш аккаунт не активовано!';
 		}
@@ -114,5 +114,34 @@ class UserController
 	{
 		require_once ROOT.'/views/reset/index.php';
 		return true;
+	}
+
+	public function actionResetpw()
+	{
+		$errors = false;
+
+		if (!User::checkEmailLogin($_POST['email'])) {
+			$errors = true;
+			echo 'Такий email не зареєстровано';
+		}
+		if ($errors == false) {
+			User::resetPassword($_POST['email']);
+			echo 'ok';
+		}
+	}
+
+	public function actionFinish()
+	{
+		require_once ROOT.'/views/reset/finish.php';
+		return true;
+	}
+
+	public function actionFinishpw()
+	{
+		if (User::checkFinishData($_POST['code'], $_POST['email'])) {
+			echo 'ok';
+		} else {
+			echo 'Дані введено не правильно';
+		}
 	}
 }

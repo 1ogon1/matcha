@@ -31,7 +31,7 @@ const SQL_CREATE_TABLE_USER_INFO = '
 ';
 
 const SQL_CREATE_ACTIVATE_TABLE = '
-	CREATE TABLE IF NOT EXISTS activate (
+	CREATE TABLE IF NOT EXISTS c (
 		id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
 		code VARCHAR(10) NOT NULL,
 		email VARCHAR(100) NOT NULL
@@ -222,4 +222,12 @@ const SQL_UNLIKE_USER = '
 
 const SQL_CHANGE_PASSWORD = '
 	UPDATE user SET password = :password WHERE id = :id
+';
+
+const SQL_CHANGE_PASSWORD_BY_EMAIL = '
+	UPDATE user SET password = :password WHERE email = :email
+';
+
+const SQL_CHECK_DATA = '
+	SELECT * FROM activate WHERE code = ? AND email = ?
 ';

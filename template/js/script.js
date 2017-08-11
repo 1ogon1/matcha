@@ -278,3 +278,34 @@ $('#save_pw').click(function () {
 	});
 }); //change password
 
+$('#reset_btn').click(function () {
+	var param = {
+		email: $('#reset_email').val()
+	};
+	// console.log(param);
+	$.post('/resetpw', param, function (data) {
+		if (data == 'ok') {
+			$('.reset_msg').text('Перевірте пошту');
+			$('.reset_msg').css('color', 'green');
+		} else {
+			$('.reset_msg').text(data);
+			$('.reset_msg').css('color', 'red');
+		}
+	});
+}); //send reset code
+
+$('#finish_btn').click(function () {
+	var params = {
+		code: $('#finish_code').val(),
+		email: $('#finish_email').val()
+	};
+	$.post('/finishpw', params, function (data) {
+		if (data == 'ok') {
+			$('#finish_msg').text('Новий пароль відправлено на пошту');
+			$('#finish_msg').css('color', 'green');
+		} else {
+			$('#finish_msg').text(data);
+			$('#finish_msg').css('color', 'red');
+		}
+	});
+});

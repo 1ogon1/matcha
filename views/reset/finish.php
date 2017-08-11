@@ -26,14 +26,18 @@
 
 	<div class="row">
 		<div class="col-lg-3 col-md-3 col-sm-3 col-lg-offset-1">
-			<h3>Введіть Ваш email</h3>
-			<div class="reset_msg"></div>
+			<h3>Введіть Ваш email і код</h3>
+			<div class="finish_msg"></div>
 			<div class="form">
 				<div class="form-group">
-					<label class="sr-only" for="log_email">Email</label>
-					<input value="" name="email" type="email" class="form-control" id="reset_email" placeholder="email" required>
+					<label class="sr-only" for="log_email">Код</label>
+					<input value="" name="code" type="text" class="form-control" id="finish_code" placeholder="введіть код" required>
 				</div>
-				<input id="reset_btn" name="reset" type="submit" class="btn btn-success" value="Відновити">
+				<div class="form-group">
+					<label class="sr-only" for="log_email">Email</label>
+					<input value="" name="email" type="email" class="form-control" id="finish_email" placeholder="email" required>
+				</div>
+				<input id="finish_btn" name="reset" type="submit" class="btn btn-success" value="Відновити">
 			</div>
 		</div>
 	</div>

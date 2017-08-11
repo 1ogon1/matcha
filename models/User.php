@@ -3,6 +3,31 @@
 class User
 {
 
+	public static function sendNewPW($email, $passwd)
+	{
+		$login = '';
+
+		$pdo = DataBase::getConnection();
+
+		$stmt = $pdo->prepare(SQL_SIGN_IN);
+		$stmt->execute([$email]);
+		$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		foreach ($res as$row) {
+			$login = $row['login'];
+		}
+
+		$headers = "Content-Type: text/html; charset=utf-8" . "\r\n";
+		$subject = "New password";
+		$r1 = "<html><head><style>.button { background-color: #646464 ; border: none;color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer;}</style><head>";
+		$r2 = "<body><h1>New password</h1>";
+		$r3 = "<article><p>Hi, {$login}!</p>";
+		$r4 = "<p>Your new password = {$passwd} !</p>";
+		$r5 = "<p>You can change password on your profile settings!</p>";
+		$r6 = "<p>Best regards, Matcha Dev</p></body></html>";
+		$message = $r1 . $r2 . $r3 . $r4 . $r5 . $r6;
+		mail($email, $subject, $message, $headers);
+	}
+
 	public static function addInfo($id)
 	{
 		$pdo = DataBase::getConnection();
@@ -37,6 +62,36 @@ class User
 		$r3 = "<article><p>Hi, {$login}!</p><p>Thanks for registration on <span>Matcha<span></p>";
 		$r4 = "<p>To activate your account on site please copy this code: {$nb}, and click on button below!</p>";
 		$r5 = "<a href='http://localhost:8080/activate' class='button'>Activate</a></article>";
+		$r6 = "<p>Best regards, Matcha Dev</p></body></html>";
+		$message = $r1 . $r2 . $r3 . $r4 . $r5 . $r6;
+		mail($email, $subject, $message, $headers);
+	}
+
+	public static function resetPassword($email)
+	{
+		$nb = rand(1000000, 9999999);
+		$login = '';
+		$pdo = DataBase::getConnection();
+		$stmt = $pdo->prepare(SQL_ADD_CODE);
+		$stmt->execute([
+			$nb,
+			$email
+		]);
+
+		$stmt = $pdo->prepare(SQL_SIGN_IN);
+		$stmt->execute([$email]);
+		$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		foreach ($res as$row) {
+			$login = $row['login'];
+		}
+
+		$headers = "Content-Type: text/html; charset=utf-8" . "\r\n";
+		$subject = "Reset your password";
+		$r1 = "<html><head><style>.button { background-color: #646464 ; border: none;color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer;}</style><head>";
+		$r2 = "<body><h1>Reset your password</h1>";
+		$r3 = "<article><p>Hi, {$login}!</p>";
+		$r4 = "<p>To reset your password on site please copy this code: {$nb}, and click on button below!</p>";
+		$r5 = "<a href='http://localhost:8080/reset/finish' class='button'>Reset</a></article>";
 		$r6 = "<p>Best regards, Matcha Dev</p></body></html>";
 		$message = $r1 . $r2 . $r3 . $r4 . $r5 . $r6;
 		mail($email, $subject, $message, $headers);
@@ -174,5 +229,28 @@ class User
 			':id' => $id,
 			':status' => $time
 		]);
+	}
+
+	public static function checkFinishData($code, $email)
+	{
+		$pdo = DataBase::getConnection();
+		$passwd = '';
+		$stmt = $pdo->prepare(SQL_CHECK_DATA);
+		$stmt->execute([
+			$code,
+			$email
+		]);
+		if ($stmt->rowCount()) {
+			$pass = rand(1000000, 9999999);
+			$passwd = hash('whirlpool', $pass);
+			$stmt = $pdo->prepare(SQL_CHANGE_PASSWORD_BY_EMAIL);
+			$stmt->execute([
+				':email' => $email,
+				':password' =>$passwd
+			]);
+			self::sendNewPW($email, $pass);
+			return true;
+		}
+		return false;
 	}
 }
