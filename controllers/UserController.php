@@ -45,7 +45,7 @@ class UserController
 	public function actionRegister()
 	{
 		$user = [
-			'login' => $_POST['login'],
+			'login' => htmlspecialchars($_POST['login']),
 			'name' => $_POST['name'],
 			'surname' => $_POST['surname'],
 			'email' => $_POST['email'],

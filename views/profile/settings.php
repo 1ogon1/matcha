@@ -7,7 +7,7 @@
 		<div class="row">
 			<div class="col-lg-6 col-lg-offset-1">
 				<form id="uploadform" name="uploadform" action="" method="post" enctype="multipart/form-data">
-					<input class="btn btn-warning" type="file" name="file" id="file">
+					<input class="btn btn-warning" type="file" name="file" id="file" accept="image/*">
 					<input class="btn btn-success" type="submit" name="upload" id="upload" value="Додати">
 					<input class="btn btn-danger" type="submit" id="cancel" value="Скасувати">
 				</form>

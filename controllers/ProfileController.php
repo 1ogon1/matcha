@@ -40,10 +40,10 @@ class ProfileController
 			$file2 = $dir2 . basename($_FILES['file']['name']);
 			if ((($_FILES['file']['type'] == "image/png") ||
 				($_FILES['file']['type'] == "image/jpg") ||
-				($_FILES['file']['type'] == "image/jpeg"))) {
+				($_FILES['file']['type'] == "image/jpeg"))
+			) {
 				if (copy($_FILES['file']['tmp_name'], $file2)) {
 					Profile::saveUserPhoto($_FILES['file']['name'], $file);
-//                    echo $dir;
 					header('location:/settings');
 				}
 			} else {
@@ -58,14 +58,14 @@ class ProfileController
 	public function actionSave()
 	{
 		$user = [
-			'login' => $_POST['login'],
+			'login' => htmlspecialchars($_POST['login']),
 			'name' => $_POST['name'],
 			'surname' => $_POST['surname'],
 			'email' => $_POST['email'],
 			'gender' => $_POST['gender'],
 			'sex_pref' => $_POST['sex_pref'],
-			'biography' => $_POST['biography'],
-			'address' => $_POST['address'],
+			'biography' => htmlspecialchars($_POST['biography']),
+			'address' => htmlspecialchars($_POST['address']),
 			'birthday' => $_POST['birthday']
 		];
 		$errors = false;
@@ -198,17 +198,19 @@ class ProfileController
 	{
 		$pdo = DataBase::getConnection();
 
-		$res = Profile::checkTag($_POST['tag'], $_COOKIE['id_user']);
+		$tag = htmlspecialchars($_POST['tag']);
+
+		$res = Profile::checkTag($tag, $_COOKIE['id_user']);
 		if ($res) {
 			echo 'error';
 		} else {
 			$stmt = $pdo->prepare(SQL_ADD_TAG);
 			$stmt->execute([
 				$_COOKIE['id_user'],
-				$_POST['tag']
+				$tag
 			]);
 			$id = $pdo->lastInsertId();
-			echo '<li class="tag_gel" value="' . $id . '"><a>#' . $_POST['tag'] . '</a></li>';
+			echo '<li class="tag_gel" value="' . $id . '"><a>#' . $tag . '</a></li>';
 		}
 	}
 

@@ -1,5 +1,8 @@
 <?php
 return array(
+	'checkmessage' => 'message/checkmessage',
+	'showMessage' => 'message/showMessage',
+	'sendmessage' => 'message/sendmessage',
 	'message' => 'message/index',
 	'changepw' => 'profile/changepw',
 	'unlike' => 'profile/unlike',

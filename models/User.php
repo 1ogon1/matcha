@@ -138,7 +138,10 @@ class User
 	public static function register_ok($user)
 	{
 		$passwd = hash("whirlpool", $user['password']);
+
 		$pdo = DataBase::getConnection();
+
+		$time = time();
 		$stmt = $pdo->prepare(SQL_ADD_USER);
 		$result = $stmt->execute([
 			$user['login'],
@@ -147,7 +150,8 @@ class User
 			$passwd,
 			$user['email'],
 			'/template/images/default-avatar.png',
-			0
+			0,
+			$time
 		]);
 		$id = $pdo->lastInsertId();
 		self::addInfo($id);

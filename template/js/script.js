@@ -308,4 +308,4 @@ $('#finish_btn').click(function () {
 			$('#finish_msg').css('color', 'red');
 		}
 	});
-});
+}); //send new password

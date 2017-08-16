@@ -26,7 +26,7 @@ class DataBase
 		self::createTableTag();
 		self::createBlockUser();
 		self::createLikeUser();
-
+		self::crateChat();
 	}
 
 	private static function createDataBase()
@@ -93,5 +93,12 @@ class DataBase
 		$pdo = self::getConnection();
 
 		$pdo->exec(SQL_CREATE_TABLE_LIKE_USER);
+	}
+
+	private static function crateChat()
+	{
+		$pdo = self::getConnection();
+
+		$pdo->exec(SQL_CREATE_TABLE_CHAT);
 	}
 }

@@ -38,15 +38,21 @@
 							</p>
 							<p>
 								<?php
-								$rows['gender'];
+								if ($rows['gender'] == 1) {
+									echo 'Чоловік';
+								} else if ($rows['gender'] == 2) {
+									echo 'Жінка';
+								}
 								?>
 							</p>
 							<p>
 								<?php
 								if ($rows['sex_pref'] == 1) {
-									echo 'Чоловік';
+									echo 'Гетеросексуал';
 								} else if ($rows['sex_pref'] == 2) {
-									echo 'Жінка';
+									echo 'Гомосексуал';
+								} else if ($rows['sex_pref'] == 3) {
+									echo 'Бісексуал';
 								}
 								?>
 							</p>

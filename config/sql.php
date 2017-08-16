@@ -4,6 +4,8 @@ const SQL_CREATE_DATABASE = '
 	CREATE DATABASE IF NOT EXISTS mvc_test
 ';
 
+//CREATE TABLE
+
 const SQL_CREATE_USER_TABLE = '
 	CREATE TABLE IF NOT EXISTS `user` (
 		id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -31,7 +33,7 @@ const SQL_CREATE_TABLE_USER_INFO = '
 ';
 
 const SQL_CREATE_ACTIVATE_TABLE = '
-	CREATE TABLE IF NOT EXISTS c (
+	CREATE TABLE IF NOT EXISTS activate (
 		id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
 		code VARCHAR(10) NOT NULL,
 		email VARCHAR(100) NOT NULL
@@ -80,8 +82,20 @@ const SQL_CREATE_TABLE_LIKE_USER = '
 	)
 ';
 
+const SQL_CREATE_TABLE_CHAT = '
+	CREATE TABLE IF NOT EXISTS message (
+		id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		id_user INT(10) NOT NULL,
+		id_sec_user INT(10) NOT NULL,
+		msg VARCHAR(255) NOT NULL,
+		status INT (2) NOT NULL 
+	)
+';
+
+//OTHER QWERTY
+
 const SQL_ADD_USER = '
-	INSERT INTO user (login, name, surname, password, email, avatar, active) VALUES (?, ?, ?, ?, ?, ?, ?)
+	INSERT INTO user (login, name, surname, password, email, avatar, active, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 ';
 
 const SQL_CHECK_EMAIL = '
@@ -230,4 +244,24 @@ const SQL_CHANGE_PASSWORD_BY_EMAIL = '
 
 const SQL_CHECK_DATA = '
 	SELECT * FROM activate WHERE code = ? AND email = ?
+';
+
+const SQL_ADD_MESSAGE = '
+	INSERT INTO message (id_user, id_sec_user, msg, time, status) VALUES (?, ?, ?, ?, ?)
+';
+
+const SQL_GET_MESSAGE = '
+	SELECT * FROM message WHERE id_user = ? AND id_sec_user = ? OR id_user = ? AND id_sec_user = ? ORDER BY id DESC 
+';
+
+const SQL_SEE_MESSAGE = '
+	UPDATE message SET status = 1 WHERE id_sec_user = :id_sec_user AND id_user = :id_user
+';
+
+const SQL_CHECK_MSG = '
+	SELECT * FROM message WHERE id_user = ? AND id_sec_user = ? AND status = 0
+';
+
+const SQL_GET_LAST_MESSAGE_BY_ID = '
+	SELECT msg FROM message WHERE id_user = ? AND id_sec_user = ? OR id_user = ? AND id_sec_user = ? ORDER BY id DESC LIMIT 1
 ';

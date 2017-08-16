@@ -44,6 +44,21 @@ class Profile
 		]);
 	}
 
+	public static function checkName($name)
+	{
+		$pdo = DataBase::getConnection();
+
+		$stmt = $pdo->prepare("SELECT * FROM image WHERE name = ?");
+		$stmt->execute([
+			$name
+		]);
+		$res = $stmt->rowCount();
+		if ($res) {
+			return false;
+		}
+		return true;
+	}
+
 	public static function saveUserPhoto($name, $src)
 	{
 		$pdo = DataBase::getConnection();
@@ -51,7 +66,7 @@ class Profile
 		$stmt = $pdo->prepare(SQL_ADD_IMAGE);
 		$stmt->execute([
 			$_COOKIE['id_user'],
-			$name,
+			$name.$i,
 			$src
 		]);
 	}

@@ -10,6 +10,7 @@
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 	<!-- my css -->
+	<link rel="stylesheet" href="/template/css/chat.css">
 	<link rel="stylesheet" href="/template/css/style.css">
 </head>
 <body>
