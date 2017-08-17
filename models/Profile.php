@@ -152,8 +152,8 @@ class Profile
 		$date = $stmt->fetch(PDO::FETCH_ASSOC);
 		$st = $date['status'];
 		$time = time();
-		$status = $time - $st;
-		return $status;
+//		$status = $time - $st;
+		return $st;
 	}
 
 	public static function addVisitor($id_user, $id_visitor)

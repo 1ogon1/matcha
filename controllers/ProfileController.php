@@ -1,13 +1,15 @@
 <?php
 
-require_once(ROOT . '/models/Profile.php');
-require_once(ROOT . '/models/User.php');
-require_once(ROOT . '/config/sql.php');
+require_once ROOT . '/models/Profile.php';
+require_once ROOT . '/models/User.php';
+require_once ROOT . '/models/Message.php';
+require_once ROOT . '/config/sql.php';
 
 class ProfileController
 {
 	public function actionIndex($id)
 	{
+		$time = time();
 		$user = Profile::showUser($id);
 		self::actionOnline();
 		$status = Profile::setStatus();
@@ -16,6 +18,7 @@ class ProfileController
 		$userTag = Profile::getTagById($id);
 		$block = Profile::getBlock($id);
 		$like = Profile::getLike($id);
+		$newMessage = Message::newMessage();
 
 		if ($id != $_COOKIE['id_user']) {
 			Profile::addVisitor($id, $_COOKIE['id_user']);
@@ -32,6 +35,7 @@ class ProfileController
 		$user = Profile::showUser($_COOKIE['id_user']);
 		$photo = Profile::showUserImage();
 		$status = Profile::setStatus();
+		$newMessage = Message::newMessage();
 
 		if (isset($_POST['upload'])) {
 			$dir = '/template/foto/';
@@ -189,6 +193,7 @@ class ProfileController
 		$user = Profile::showUser($_COOKIE['id_user']);
 		$user_info = Profile::showUserInfo($_COOKIE['id_user']);
 		$tag = Profile::getTagById($_COOKIE['id_user']);
+		$newMessage = Message::newMessage();
 
 		require_once ROOT . '/views/profile/more_settings.php';
 		return true;

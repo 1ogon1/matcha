@@ -12,8 +12,10 @@
 			<div class="col-lg-5 col-md-5 col-sm-3 col-lg-offset-1">
 				<div class="row">
 					<?php echo '<p class="name">' . $row['name'] . ' ' . $row['surname'];
-					if ($userStatus >= 60) {
-						echo '<span style="color: red;"> Оффлайн</span>';
+					if ($time - $userStatus >= 60) {
+						date_default_timezone_set('Europe/Kiev');
+						$online_time = date ( "d-m-Y h:i A" , $userStatus);
+						echo '<span style="color: red;"> '.$online_time.'</span>';
 					} else {
 						echo '<span style="color: green;"> Онлайн</span>';
 					}
@@ -21,10 +23,10 @@
 					?>
 				</div>
 				<div class="row">
-					<div class="col-lg-4 col-md-3 col-sm-3">
+					<div class="col-lg-5 col-md-6 col-sm-12">
 						<img src="<?php echo $row['avatar'] ?>" width="200px" height="250px">
 					</div>
-					<div class="col-lg-8 col-md-3 col-sm-3 col-lg-offset-0">
+					<div class="col-lg-7 col-md-4 col-sm-4 col-lg-offset-0 pull-left">
 
 						<?php foreach ($userInfo as $rows) : ?>
 
@@ -128,3 +130,4 @@
 		type="text/javascript"></script>
 <script src="/template/js/online.js"></script>
 <script src="/template/js/script.js"></script>
+<script src="/template/js/msgnotif.js"></script>

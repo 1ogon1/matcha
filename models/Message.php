@@ -1,6 +1,5 @@
 <?php
 
-
 class Message
 {
 	public static function getLikedUsers($id_one, $id_two)
@@ -40,5 +39,27 @@ class Message
 			$_COOKIE['id_user']
 		]);
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public static function newMessage()
+	{
+		$pdo = DataBase::getConnection();
+
+		$stmt = $pdo->prepare("SELECT * FROM message WHERE id_sec_user = ? AND status = 0");
+		$stmt->execute([$_COOKIE['id_user']]);
+		$res = $stmt->rowCount();
+		return $res;
+	}
+
+	public static function newMessageById($id)
+	{
+		$pdo = DataBase::getConnection();
+
+		$stmt = $pdo->prepare("SELECT * FROM message WHERE id_user = ? AND id_sec_user = ? AND status = 0");
+		$stmt->execute([
+			$id,
+			$_COOKIE['id_user']
+		]);
+		return $stmt->rowCount();
 	}
 }

@@ -26,7 +26,17 @@
 						</a>
 						<div class="media-body">
 							<h5 class="media-heading"><?php echo $row['login'] ?></h5>
-<!--							<small>--><?php //echo $message; ?><!--</small>-->
+							<!--							<small>--><?php //echo $message; ?><!--</small>-->
+
+							<?php
+							$newMsg = Message::newMessageById($row['id']);
+							if ($newMsg > 0) : ?>
+								<span class="badge pull-right newmsg-<?php echo $row['id'] ?>">
+
+									<?php echo $newMsg; ?>
+
+								</span>
+							<?php endif; ?>
 						</div>
 					</div>
 

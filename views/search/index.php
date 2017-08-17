@@ -17,5 +17,6 @@
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
 	<script src="/template/js/online.js"></script>
+	<script src="/template/js/msgnotif.js"></script>
 
 <?php require_once(ROOT . '/views/layout/footer.php'); ?>

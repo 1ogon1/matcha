@@ -12,12 +12,13 @@ class MessageController
 		Profile::setOnline();
 		$status = Profile::setStatus();
 		$users = Message::getUsers();
+		$newMessage = 0;
 
 		require_once ROOT . '/views/message/message.php';
 		return true;
 	}
 
-	public function actionSendmessage()
+	public function actionSendMessage()
 	{
 		$pdo = DataBase::getConnection();
 
@@ -96,19 +97,19 @@ class MessageController
 							'</div>' .
 							'</div>';
 					}
-					foreach ($id_sec as $rrrr) {
-						if ($row['id_user'] == $rrrr['id']) {
-							echo '<div class="media msg">' .
-								'<a class="pull-left" href="/profile/' . $rrrr['id'] . '">' .
-								'<img class="media-object" data-src="holder.js/64x64" alt="64x64" src="' . $rrrr['avatar'] . '">' .
-								'</a>' .
-								'<div class="media-body">' .
-								'<small class="pull-right time"><i class="fa fa-clock-o"></i>' . $row['time'] . '</small>' .
-								'<h5 class="media-heading">' . $rrrr['login'] . '</h5>' .
-								'<small class="col-lg-10">' . $row['msg'] . '</small>' .
-								'</div>' .
-								'</div>';
-						}
+				}
+				foreach ($id_sec as $rrrr) {
+					if ($row['id_user'] == $rrrr['id']) {
+						echo '<div class="media msg">' .
+							'<a class="pull-left" href="/profile/' . $rrrr['id'] . '">' .
+							'<img class="media-object" data-src="holder.js/64x64" alt="64x64" src="' . $rrrr['avatar'] . '">' .
+							'</a>' .
+							'<div class="media-body">' .
+							'<small class="pull-right time"><i class="fa fa-clock-o"></i>' . $row['time'] . '</small>' .
+							'<h5 class="media-heading">' . $rrrr['login'] . '</h5>' .
+							'<small class="col-lg-10">' . $row['msg'] . '</small>' .
+							'</div>' .
+							'</div>';
 					}
 				}
 			}
@@ -116,7 +117,7 @@ class MessageController
 		}
 	}
 
-	public function actionCheckmessage()
+	public function actionCheckMessage()
 	{
 		$pdo = DataBase::getConnection();
 
@@ -152,6 +153,33 @@ class MessageController
 						'</div>' .
 						'</div>';
 				}
+			}
+		}
+	}
+
+	public function actionMsgNotification()
+	{
+		echo Message::newMessage();
+	}
+
+	public function actionCheckNew()
+	{
+		$pdo = DataBase::getConnection();
+
+		$array = array();
+		$stmt = $pdo->prepare("SELECT id_user FROM message WHERE id_sec_user = ? AND status = 0 GROUP BY id_user");
+		$stmt->execute([$_COOKIE['id_user']]);
+		if ($stmt->rowCount()) {
+			$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			foreach ($res as $row) {
+				$st = $pdo->prepare("SELECT * FROM MESSAGE WHERE id_user = ? AND id_sec_user = ? AND status = 0");
+				$st->execute([
+					$row['id_user'],
+					$_COOKIE['id_user']
+				]);
+				$array['id'] = $row['id_user'];
+				$array['count'] = $st->rowCount();
+				echo json_encode($array);
 			}
 		}
 	}

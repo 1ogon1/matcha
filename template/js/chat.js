@@ -1,10 +1,10 @@
 $('#send').click(function () {
 	var currentdate = new Date();
 	var datetime = currentdate.getDate() + "."
-		 + (currentdate.getMonth()+1)  + "."
-		 + currentdate.getFullYear() + " "
-		 + currentdate.getHours() + ":"
-		 + currentdate.getMinutes();
+		+ (currentdate.getMonth() + 1) + "."
+		+ currentdate.getFullYear() + " "
+		+ currentdate.getHours() + ":"
+		+ currentdate.getMinutes();
 	var params = {
 		msg: $('#message').val(),
 		id: $('.msg-wrap').attr('id'),
@@ -22,6 +22,7 @@ $('#send').click(function () {
 
 $('.media').click(function () {
 	$('.msg-wrap').empty();
+	$('.newmsg-' + $(this).data('text')).empty();
 	$('.msg-wrap').attr('id', $(this).data('text')); //set id
 	var param = {
 		id: $(this).data('text')
@@ -46,4 +47,11 @@ setInterval(function () {
 			}
 		});
 	}
+	$.post('/checkNew', function (data) {
+		if (data) {
+			var array = $.parseJSON(data);
+			// console.log(array);
+			$('.newmsg-' + array['id']).text(array['count']);
+		}
+	});
 }, 2000); //show in real time
