@@ -14,7 +14,7 @@
 		</li>
 		<li><a href="/search">Пошук</a></li>
 		<li><a href="/settings">Налаштування</a></li>
-		<li class="link"><a>Гості</a>
+		<li class="link"><a>Сповіщення</a>
 			<div id="visitor">
 			</div>
 		</li>

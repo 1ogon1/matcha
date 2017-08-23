@@ -1,5 +1,7 @@
 <?php
 return array(
+	'getAddress' => 'profile/getAddress',
+	'setAddress' => 'profile/setAddress',
 	'checkNew' => 'message/checkNew',
 	'msgNotification' => 'message/msgNotification',
 	'checkmessage' => 'message/checkMessage',
@@ -11,6 +13,7 @@ return array(
 	'like' => 'profile/like',
 	'unblock' => 'profile/unblock',
 	'block' => 'profile/block',
+	'seeNew' => 'profile/seeNew',
 	'delvisit' => 'profile/delvisit',
 	'visitorload' => 'profile/visitorload',
 	'visitor' => 'profile/visitor',

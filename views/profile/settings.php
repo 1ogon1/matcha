@@ -6,9 +6,10 @@
 
 		<div class="row">
 			<div class="col-lg-6 col-lg-offset-1">
+				<h1>Додати фото <span class="foto_index">(max 5)</span></h1>
 				<form id="uploadform" name="uploadform" action="" method="post" enctype="multipart/form-data">
-					<input class="btn btn-warning" type="file" name="file" id="file" accept="image/*">
-					<input class="btn btn-success" type="submit" name="upload" id="upload" value="Додати">
+					<input class="btn btn-warning" type="file" name="file" id="file" accept="image/*" <?php if ($maxImage >= 5) {echo 'disabled';}?>>
+					<input class="btn btn-success" type="submit" name="upload" id="upload" value="Додати" <?php if ($maxImage >= 5) {echo 'disabled';}?>>
 					<input class="btn btn-danger" type="submit" id="cancel" value="Скасувати">
 				</form>
 				<div class="preview_img">

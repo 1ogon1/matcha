@@ -40,7 +40,7 @@ class Profile
 			':sex_pref' => $personal_info['sex_pref'],
 			':biography' => $personal_info['biography'],
 			':birthday' => $personal_info['birthday'],
-			':address' => $personal_info['address']
+//			':address' => $personal_info['address']
 		]);
 	}
 
@@ -66,7 +66,7 @@ class Profile
 		$stmt = $pdo->prepare(SQL_ADD_IMAGE);
 		$stmt->execute([
 			$_COOKIE['id_user'],
-			$name.$i,
+			$name . $i,
 			$src
 		]);
 	}
@@ -156,24 +156,25 @@ class Profile
 		return $st;
 	}
 
-	public static function addVisitor($id_user, $id_visitor)
+	public static function addVisitor($id_user, $id_visitor, $type)
 	{
 		$pdo = DataBase::getConnection();
 
-		$stmt = $pdo->prepare(SQL_GET_VISITOR_CHECK);
+//		$stmt = $pdo->prepare(SQL_GET_VISITOR_CHECK);
+//		$stmt->execute([
+//			$id_user,
+//			$id_visitor
+//		]);
+//		$res = $stmt->rowCount();
+//		if (!$res) {
+		$stmt = $pdo->prepare(SQL_ADD_VISITOR);
 		$stmt->execute([
 			$id_user,
-			$id_visitor
+			$id_visitor,
+			$type,
+			0
 		]);
-		$res = $stmt->rowCount();
-		if (!$res) {
-			$stmt = $pdo->prepare(SQL_ADD_VISITOR);
-			$stmt->execute([
-				$id_user,
-				$id_visitor,
-				0
-			]);
-		}
+//		}
 	}
 
 	public static function getTagById($id)
@@ -242,5 +243,34 @@ class Profile
 			':id' => $_COOKIE['id_user'],
 			':status' => $time
 		]);
+	}
+
+	public static function getAddress($id)
+	{
+		$pdo = DataBase::getConnection();
+
+		$mass = array();
+		$stmt = $pdo->prepare("SELECT lat, lng FROM user_info WHERE id_user = ?");
+		$stmt->execute([$_POST['id']]);
+		if ($stmt->rowCount()) {
+			$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			foreach ($res as $row) {
+				$mass['lat'] = $row['lat'];
+				$mass['lng'] = $row['lng'];
+				return $mass;
+			}
+		}
+		return false;
+	}
+
+	public static function countImage()
+	{
+		$pdo = DataBase::getConnection();
+
+		$stmt = $pdo->prepare("SELECT * FROM image WHERE id_user = ?");
+		$stmt->execute([
+			$_COOKIE['id_user']
+		]);
+		return $stmt->rowCount();
 	}
 }

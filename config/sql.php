@@ -28,7 +28,8 @@ const SQL_CREATE_TABLE_USER_INFO = '
         sex_pref INT(1) NOT NULL,
         biography TEXT NOT NULL,
         birthday DATE NOT NULL,
-        address VARCHAR(255) NOT NULL
+        lat DOUBLE,
+        lng DOUBLE
     )
 ';
 
@@ -135,7 +136,7 @@ const SQL_USER_UPDATE = '
 ';
 
 const SQL_USER_UPDATE_INFO = '
-    UPDATE user_info SET gender = :gender, sex_pref = :sex_pref, biography = :biography, birthday = :birthday, address = :address  WHERE id_user = :id_user
+    UPDATE user_info SET gender = :gender, sex_pref = :sex_pref, biography = :biography, birthday = :birthday WHERE id_user = :id_user
 ';
 
 const SQL_ADD_IMAGE = '
@@ -163,15 +164,15 @@ const SQL_GET_STATUS = '
 ';
 
 const SQL_ADD_VISITOR = '
-    INSERT INTO visitor (id_user, id_visitor, status) VALUES (?, ?, ?)
+    INSERT INTO visitor (id_user, id_visitor, type, status) VALUES (?, ?, ?, ?)
 ';
 
 const SQL_GET_VISITOR = '
-    SELECT id_visitor FROM visitor WHERE id_user = ? AND status = 0
+    SELECT * FROM visitor WHERE id_user = ? ORDER BY id DESC 
 ';
 
 const SQL_GET_VISITOR_LOAD = '
-    SELECT id_visitor FROM visitor WHERE id_user = ?
+    SELECT * FROM visitor WHERE id_user = ? ORDER BY id DESC 
 ';
 
 const SQL_GET_VISITOR_CHECK = '
@@ -187,7 +188,7 @@ const SQL_DELETE_VISITOR = '
 ';
 
 const SQL_ADD_INFO = '
-    INSERT INTO user_info (id, id_user, gender, sex_pref, biography, birthday, address) VALUES (?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO user_info (id, id_user, gender, sex_pref, biography, birthday, lat, lng) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 ';
 
 const SELECT_USER_INFO = '

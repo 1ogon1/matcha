@@ -6,45 +6,46 @@ $(document).on('click', function () {
 setInterval(function () {
 	$.post('/visitor', function (data) {
 		if (data) {
-			$('.link').children('a').css('color', 'greenyellow');
+			$('#visitor').empty();
 			$('#visitor').append(data);
 			$('.user').children('a').css('color', 'black');
 		}
 	});
+	$.post('/seeNew', function (data) {
+		if (data) {
+			$('.link').children('a').css('color', 'greenyellow');
+		}
+	})
 }, 3000);
 
 $(document).ready(function () {
 	$.post('/visitorload', function (data) {
 		if (data) {
-			// console.log(data);
-			$('.link').children('a').css('color', 'greenyellow');
 			$('.link').css('color', 'greenyellow');
 			$('#visitor').append(data);
 			$('.user').children('a').css('color', 'black');
 		}
 	});
+	$.post('/seeNew', function (data) {
+		if (data) {
+			$('.link').children('a').css('color', 'greenyellow');
+		}
+	})
+});
+
+$('.link').mouseleave(function () {
+	$.post('/delvisit', function () {});
+	$('.user').css({'background-color' : ''});
+	$('.link').children('a').css('color', '');
 });
 
 $('#visitor')
 	.mouseenter(function () {
 		$('.link').css('background-color', 'white');
 		$('.link').css('border-radius', '5px');
-		$('.link').css('color', 'black');
+		$('.link').children('a').css('color', 'black');
 	})
 	.mouseleave(function () {
 		$('.link').css('background-color', '');
-		$('.link').css('color', 'white');
+		$('.link').children('a').css('color', 'white');
 	});
-
-
-function user_ifo(id) {
-	var param = {
-		id_visitor: id
-	};
-	$.post('/delvisit', param, function (data) {
-		if (data === 'ok') {
-			$(location).attr('href', '/profile/' + id);
-			$('.link').css('color', 'white');
-		}
-	});
-}

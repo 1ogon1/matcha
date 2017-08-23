@@ -96,13 +96,13 @@
       						</span>
 							</div>
 
-							<div class="input-group mrg_bot">
-								<input name="address" type="text" class="form-control" disabled id="input7"
-									   value="<?php echo $row['address']; ?>" placeholder="адреса">
-								<span class="input-group-btn">
-        						<input class="btn btn-default" data-text="input7" type="submit" value="Змінити">
-      						</span>
-							</div>
+<!--							<div class="input-group mrg_bot">-->
+<!--								<input name="address" type="text" class="form-control" disabled id="input7"-->
+<!--									   value="--><?php //echo $row['address']; ?><!--" placeholder="адреса">-->
+<!--								<span class="input-group-btn">-->
+<!--        						<input class="btn btn-default" data-text="input7" type="submit" value="Змінити">-->
+<!--      						</span>-->
+<!--							</div>-->
 
 							<div class="input-group mrg_bot">
 								<input name="birthday" id="input8" type="date" min="1940-01-01" max="2001-01-01"

@@ -17,7 +17,7 @@
 
 .name {
 	font-size: 25px;
-	margin-top: 40px;
+	/*margin-top: 40px;*/
 }
 
 .name span {
@@ -151,20 +151,30 @@
 	background-color: white;
 	color: black;
 	z-index: 1;
-	border-radius: 5px;
+	overflow: auto;
+	width: auto;
+	max-height: 200px;
+}
+
+.new_user {
+	background-color: cornsilk;
 }
 
 .user {
-	padding-top: 5px;
+	padding: 0;
+	margin: 0;
 	display: block;
 	width: auto;
 	white-space: pre;
-	height: 40px;
+	height: 55px;
 	color: black;
 	border-bottom: 1px dimgrey solid;
-	border-radius: 5px;
 	z-index: 4;
 	position: relative;
+}
+
+.user span {
+	font-size: 15px;
 }
 
 .user img {
@@ -235,4 +245,8 @@
 #reset {
 	text-decoration: none;
 	color: black;
+}
+
+.foto_index {
+	font-size: 12px;
 }

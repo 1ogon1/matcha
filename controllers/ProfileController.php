@@ -21,7 +21,7 @@ class ProfileController
 		$newMessage = Message::newMessage();
 
 		if ($id != $_COOKIE['id_user']) {
-			Profile::addVisitor($id, $_COOKIE['id_user']);
+			Profile::addVisitor($id, $_COOKIE['id_user'], 1);
 		}
 
 		require_once(ROOT . '/views/profile/index.php');
@@ -36,6 +36,7 @@ class ProfileController
 		$photo = Profile::showUserImage();
 		$status = Profile::setStatus();
 		$newMessage = Message::newMessage();
+		$maxImage = Profile::countImage();
 
 		if (isset($_POST['upload'])) {
 			$dir = '/template/foto/';
@@ -69,7 +70,7 @@ class ProfileController
 			'gender' => $_POST['gender'],
 			'sex_pref' => $_POST['sex_pref'],
 			'biography' => htmlspecialchars($_POST['biography']),
-			'address' => htmlspecialchars($_POST['address']),
+//			'address' => htmlspecialchars($_POST['address']),
 			'birthday' => $_POST['birthday']
 		];
 		$errors = false;
@@ -115,6 +116,19 @@ class ProfileController
 		Profile::setOnline();
 	}
 
+	public function actionSeeNew()
+	{
+		$pdo = DataBase::getConnection();
+
+		$stmt = $pdo->prepare("SELECT * FROM visitor WHERE id_user = ? AND status = 0");
+		$stmt->execute([
+			$_COOKIE['id_user']
+		]);
+		if ($stmt->rowCount()) {
+			echo 'ok';
+		}
+	}
+
 	public function actionVisitor()
 	{
 		$pdo = DataBase::getConnection();
@@ -130,18 +144,48 @@ class ProfileController
 				$stmt->execute([$row['id_visitor']]);
 				$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 				foreach ($res as $rows) {
-					echo '<a href="javascript: user_ifo(' . $rows['id'] . ')" title = "user info"><div class="user"><img src="' . $rows['avatar'] . '">' .
-						$rows['login'] .
-						'</div></a>';
+					if ($row['type'] == 1) {
+
+						if ($row['status'] == 0) {
+							echo '<a><div class="user new_user"><img src="' . $rows['avatar'] . '">' .
+								$rows['login'] .
+								'<br><span>Відвідав вашу сторінку</span></div></a>';
+						} else if ($row['status'] == 1) {
+							echo '<a><div class="user"><img src="' . $rows['avatar'] . '">' .
+								$rows['login'] .
+								'<br><span>Відвідав вашу сторінку</span></div></a>';
+						}
+					} else if ($row['type'] == 2) {
+
+						if ($row['status'] == 0) {
+							echo '<a><div class="user new_user"><img src="' . $rows['avatar'] . '">' .
+								$rows['login'] .
+								'<br><span>Лайкнув вас</span></div></a>';
+						} else if ($row['status'] == 1) {
+							echo '<a><div class="user"><img src="' . $rows['avatar'] . '">' .
+								$rows['login'] .
+								'<br><span>Лайкнув вас</span></div></a>';
+						}
+					} else if ($row['type'] == 3) {
+
+						if ($row['status'] == 0) {
+							echo '<a><div class="user new_user"><img src="' . $rows['avatar'] . '">' .
+								$rows['login'] .
+								'<br><span>Дизлайкнув вас</span></div></a>';
+						} else if ($row['status'] == 1) {
+							echo '<a><div class="user"><img src="' . $rows['avatar'] . '">' .
+								$rows['login'] .
+								'<br><span>Дизлайкнув вас</span></div></a>';
+						}
+					}
 				}
 			}
-			$stmt = $pdo->prepare(SQL_SEW_VISITOR);
-			$stmt->execute([
-				':id_user' => $_COOKIE['id_user'],
-				':status' => 1
-			]);
 		}
 	}
+
+//echo '<a href="javascript: user_ifo(' . $rows['id'] . ')" title = "user info"><div class="user new_user"><img src="' . $rows['avatar'] . '">' .
+//$rows['login'] .
+//'</div></a>';
 
 	public function actionVisitorload()
 	{
@@ -158,16 +202,42 @@ class ProfileController
 				$stmt->execute([$row['id_visitor']]);
 				$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 				foreach ($res as $rows) {
-					echo '<a href="javascript: user_ifo(' . $rows['id'] . ')" title = "user info"><div class="user"><img src="' . $rows['avatar'] . '">' .
-						$rows['login'] .
-						'</div></a>';
+					if ($row['type'] == 1) {
+
+						if ($row['status'] == 0) {
+							echo '<a><div class="user new_user"><img src="' . $rows['avatar'] . '">' .
+								$rows['login'] .
+								'<br><span>Відвідав вашу сторінку</span></div></a>';
+						} else if ($row['status'] == 1) {
+							echo '<a><div class="user"><img src="' . $rows['avatar'] . '">' .
+								$rows['login'] .
+								'<br><span>Відвідав вашу сторінку</span></div></a>';
+						}
+					} else if ($row['type'] == 2) {
+
+						if ($row['status'] == 0) {
+							echo '<a><div class="user new_user"><img src="' . $rows['avatar'] . '">' .
+								$rows['login'] .
+								'<br><span>Лайкнув вас</span></div></a>';
+						} else if ($row['status'] == 1) {
+							echo '<a><div class="user"><img src="' . $rows['avatar'] . '">' .
+								$rows['login'] .
+								'<br><span>Лайкнув вас</span></div></a>';
+						}
+					} else if ($row['type'] == 3) {
+
+						if ($row['status'] == 0) {
+							echo '<a><div class="user new_user"><img src="' . $rows['avatar'] . '">' .
+								$rows['login'] .
+								'<br><span>Дизлайкнув вас</span></div></a>';
+						} else if ($row['status'] == 1) {
+							echo '<a><div class="user"><img src="' . $rows['avatar'] . '">' .
+								$rows['login'] .
+								'<br><span>Дизлайкнув вас</span></div></a>';
+						}
+					}
 				}
 			}
-			$stmt = $pdo->prepare(SQL_SEW_VISITOR);
-			$stmt->execute([
-				':id_user' => $_COOKIE['id_user'],
-				':status' => 1
-			]);
 		}
 	}
 
@@ -175,15 +245,11 @@ class ProfileController
 	{
 		$pdo = DataBase::getConnection();
 
-		$stmt = $pdo->prepare(SQL_DELETE_VISITOR);
+		$stmt = $pdo->prepare(SQL_SEW_VISITOR);
 		$stmt->execute([
-			$_COOKIE['id_user'],
-			$_POST['id_visitor']
+			':id_user' => $_COOKIE['id_user'],
+			':status' => 1
 		]);
-		$res = $stmt->rowCount();
-		if ($res) {
-			echo 'ok';
-		}
 	}
 
 	public function actionMore()
@@ -261,6 +327,7 @@ class ProfileController
 	{
 		$pdo = DataBase::getConnection();
 
+		Profile::addVisitor($_POST['id_like_user'], $_COOKIE['id_user'], 2);
 		$stmt = $pdo->prepare(SQL_LIKE_USER);
 		$stmt->execute([
 			$_COOKIE['id_user'],
@@ -275,6 +342,7 @@ class ProfileController
 	{
 		$pdo = DataBase::getConnection();
 
+		Profile::addVisitor($_POST['id_like_user'], $_COOKIE['id_user'], 3);
 		$stmt = $pdo->prepare(SQL_UNLIKE_USER);
 		$stmt->execute([
 			$_COOKIE['id_user'],
@@ -297,6 +365,37 @@ class ProfileController
 			}
 		} else {
 			echo 'Паролі не співпадають';
+		}
+	}
+
+	public function actionSetAddress()
+	{
+		$pdo = DataBase::getConnection();
+
+		$address = Profile::getAddress($_POST['id']);
+
+		if (isset($_POST['change_loc'])) {
+			$stmt = $pdo->prepare("UPDATE user_info SET lat = :lat, lng = :lng WHERE id_user = :id_user");
+			$stmt->execute([
+				':id_user' => $_COOKIE['id_user'],
+				':lat' => $_POST['lat'],
+				':lng' => $_POST['lng']
+			]);
+			$address = Profile::getAddress($_POST['id']);
+			echo json_encode($address);
+		} else {
+			if ($address) {
+				echo json_encode($address);
+			} else {
+				$stmt = $pdo->prepare("UPDATE user_info SET lat = :lat, lng = :lng WHERE id_user = :id_user");
+				$stmt->execute([
+					':id_user' => $_COOKIE['id_user'],
+					':lat' => $_POST['lat'],
+					':lng' => $_POST['lng']
+				]);
+				$address = Profile::getAddress($_POST['id']);
+				echo json_encode($address);
+			}
 		}
 	}
 }
