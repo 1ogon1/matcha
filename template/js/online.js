@@ -34,8 +34,9 @@ $(document).ready(function () {
 });
 
 $('.link').mouseleave(function () {
-	$.post('/delvisit', function () {});
-	$('.user').css({'background-color' : ''});
+	$.post('/delvisit', function () {
+	});
+	$('.user').css({'background-color': ''});
 	$('.link').children('a').css('color', '');
 });
 
@@ -49,3 +50,9 @@ $('#visitor')
 		$('.link').css('background-color', '');
 		$('.link').children('a').css('color', 'white');
 	});
+
+function user_info(id) {
+	if (id) {
+		$(location).attr('href', '/profile/' + id);
+	}
+}

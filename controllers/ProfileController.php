@@ -147,33 +147,33 @@ class ProfileController
 					if ($row['type'] == 1) {
 
 						if ($row['status'] == 0) {
-							echo '<a><div class="user new_user"><img src="' . $rows['avatar'] . '">' .
+							echo '<a href="javascript: user_info(' . $rows['id'] . ')"><div class="user new_user"><img src="' . $rows['avatar'] . '">' .
 								$rows['login'] .
 								'<br><span>Відвідав вашу сторінку</span></div></a>';
 						} else if ($row['status'] == 1) {
-							echo '<a><div class="user"><img src="' . $rows['avatar'] . '">' .
+							echo '<a href="javascript: user_info(' . $rows['id'] . ')"><div class="user"><img src="' . $rows['avatar'] . '">' .
 								$rows['login'] .
 								'<br><span>Відвідав вашу сторінку</span></div></a>';
 						}
 					} else if ($row['type'] == 2) {
 
 						if ($row['status'] == 0) {
-							echo '<a><div class="user new_user"><img src="' . $rows['avatar'] . '">' .
+							echo '<a href="javascript: user_info(' . $rows['id'] . ')"><div class="user new_user"><img src="' . $rows['avatar'] . '">' .
 								$rows['login'] .
 								'<br><span>Лайкнув вас</span></div></a>';
 						} else if ($row['status'] == 1) {
-							echo '<a><div class="user"><img src="' . $rows['avatar'] . '">' .
+							echo '<a href="javascript: user_info(' . $rows['id'] . ')"><div class="user"><img src="' . $rows['avatar'] . '">' .
 								$rows['login'] .
 								'<br><span>Лайкнув вас</span></div></a>';
 						}
 					} else if ($row['type'] == 3) {
 
 						if ($row['status'] == 0) {
-							echo '<a><div class="user new_user"><img src="' . $rows['avatar'] . '">' .
+							echo '<a href="javascript: user_info(' . $rows['id'] . ')"><div class="user new_user"><img src="' . $rows['avatar'] . '">' .
 								$rows['login'] .
 								'<br><span>Дизлайкнув вас</span></div></a>';
 						} else if ($row['status'] == 1) {
-							echo '<a><div class="user"><img src="' . $rows['avatar'] . '">' .
+							echo '<a href="javascript: user_info(' . $rows['id'] . ')"><div class="user"><img src="' . $rows['avatar'] . '">' .
 								$rows['login'] .
 								'<br><span>Дизлайкнув вас</span></div></a>';
 						}
@@ -205,33 +205,33 @@ class ProfileController
 					if ($row['type'] == 1) {
 
 						if ($row['status'] == 0) {
-							echo '<a><div class="user new_user"><img src="' . $rows['avatar'] . '">' .
+							echo '<a href="javascript: user_info(' . $rows['id'] . ')"><div class="user new_user"><img src="' . $rows['avatar'] . '">' .
 								$rows['login'] .
 								'<br><span>Відвідав вашу сторінку</span></div></a>';
 						} else if ($row['status'] == 1) {
-							echo '<a><div class="user"><img src="' . $rows['avatar'] . '">' .
+							echo '<a href="javascript: user_info(' . $rows['id'] . ')"><div class="user"><img src="' . $rows['avatar'] . '">' .
 								$rows['login'] .
 								'<br><span>Відвідав вашу сторінку</span></div></a>';
 						}
 					} else if ($row['type'] == 2) {
 
 						if ($row['status'] == 0) {
-							echo '<a><div class="user new_user"><img src="' . $rows['avatar'] . '">' .
+							echo '<a href="javascript: user_info(' . $rows['id'] . ')"><div class="user new_user"><img src="' . $rows['avatar'] . '">' .
 								$rows['login'] .
 								'<br><span>Лайкнув вас</span></div></a>';
 						} else if ($row['status'] == 1) {
-							echo '<a><div class="user"><img src="' . $rows['avatar'] . '">' .
+							echo '<a href="javascript: user_info(' . $rows['id'] . ')"><div class="user"><img src="' . $rows['avatar'] . '">' .
 								$rows['login'] .
 								'<br><span>Лайкнув вас</span></div></a>';
 						}
 					} else if ($row['type'] == 3) {
 
 						if ($row['status'] == 0) {
-							echo '<a><div class="user new_user"><img src="' . $rows['avatar'] . '">' .
+							echo '<a href="javascript: user_info(' . $rows['id'] . ')"><div class="user new_user"><img src="' . $rows['avatar'] . '">' .
 								$rows['login'] .
 								'<br><span>Дизлайкнув вас</span></div></a>';
 						} else if ($row['status'] == 1) {
-							echo '<a><div class="user"><img src="' . $rows['avatar'] . '">' .
+							echo '<a href="javascript: user_info(' . $rows['id'] . ')"><div class="user"><img src="' . $rows['avatar'] . '">' .
 								$rows['login'] .
 								'<br><span>Дизлайкнув вас</span></div></a>';
 						}
