@@ -93,6 +93,14 @@ const SQL_CREATE_TABLE_CHAT = '
 	)
 ';
 
+const SQL_CREATE_TABLE_RATING = '
+	CREATE TABLE IF NOT EXISTS rating (
+    	id INT AUTO_INCREMENT PRIMARY KEY,
+    	id_user INT(10) NOT NULL,
+    	user_rating INT(10) DEFAULT 0
+    )
+';
+
 //OTHER QWERTY
 
 const SQL_ADD_USER = '

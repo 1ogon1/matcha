@@ -23,6 +23,17 @@
 			<div class="row">
 				<div class="col-lg-5 col-md-6 col-sm-12">
 					<img src="<?php echo $row['avatar'] ?>" width="200px" height="250px">
+
+					<div class="progress" style="margin-top: 20px">
+						<div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $rating; ?>"
+							 aria-valuemin="0" aria-valuemax="100" style="width: <?php if ($rating <= 100) {
+							echo $rating;
+						} else {
+							echo 100;
+						} ?>%;">
+							<?php echo $rating; ?>%
+						</div>
+					</div>
 				</div>
 				<div class="col-lg-7 col-md-4 col-sm-4 col-lg-offset-0 pull-left">
 
@@ -68,6 +79,8 @@
 
 				</div>
 			</div>
+
+
 			<div class="row">
 				<div class="col-lg-12">
 

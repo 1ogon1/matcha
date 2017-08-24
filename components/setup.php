@@ -27,6 +27,7 @@ class DataBase
 		self::createBlockUser();
 		self::createLikeUser();
 		self::crateChat();
+		self::createRating();
 	}
 
 	private static function createDataBase()
@@ -100,5 +101,12 @@ class DataBase
 		$pdo = self::getConnection();
 
 		$pdo->exec(SQL_CREATE_TABLE_CHAT);
+	}
+
+	private static function createRating()
+	{
+		$pdo = self::getConnection();
+
+		$pdo->exec(SQL_CREATE_TABLE_RATING);
 	}
 }

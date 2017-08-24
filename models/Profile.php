@@ -273,4 +273,39 @@ class Profile
 		]);
 		return $stmt->rowCount();
 	}
+
+	public static function getRatingById($id)
+	{
+		$pdo = DataBase::getConnection();
+
+		$rating = 0;
+
+		$stmt = $pdo->prepare("SELECT u.avatar, i.gender, i.sex_pref, i.biography, i.birthday, i.lat, i.lng FROM user u INNER JOIN user_info i ON u.id = ? AND i.id_user = ?");
+		$stmt->execute([
+			$id,
+			$id
+		]);
+		$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		foreach ($res as $row) {
+			if (!strcmp($row['avatar'], "/template/foto/default-avatar.png")) {
+				$rating += 20;
+			}
+			if ($row['gender'] != 0) {
+				$rating += 20;
+			}
+			if ($row['sex_pref'] != 0) {
+				$rating += 15;
+			}
+			if ($row['biography']) {
+				$rating += 15;
+			}
+			if ($row['birthday'] != 0) {
+				$rating += 15;
+			}
+			if ($row['lat'] && $row['lng']) {
+				$rating += 15;
+			}
+		}
+		return $rating;
+	}
 }

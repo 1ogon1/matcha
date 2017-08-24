@@ -19,6 +19,7 @@ class ProfileController
 		$block = Profile::getBlock($id);
 		$like = Profile::getLike($id);
 		$newMessage = Message::newMessage();
+		$rating = Profile::getRatingById($id);
 
 		if ($id != $_COOKIE['id_user']) {
 			Profile::addVisitor($id, $_COOKIE['id_user'], 1);
