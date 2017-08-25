@@ -287,7 +287,7 @@ class Profile
 		]);
 		$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		foreach ($res as $row) {
-			if (!strcmp($row['avatar'], "/template/foto/default-avatar.png")) {
+			if (strcmp($row['avatar'], "/template/images/default-avatar.png")) {
 				$rating += 20;
 			}
 			if ($row['gender'] != 0) {
@@ -306,6 +306,28 @@ class Profile
 				$rating += 15;
 			}
 		}
+		$rating += 5 * self::getUsers($id);
+		self::setRating($id, $rating);
 		return $rating;
+	}
+
+	private static function getUsers($id)
+	{
+		$pdo = DataBase::getConnection();
+
+		$stmt = $pdo->prepare("SELECT u.login, u.avatar, u.id FROM user u LEFT JOIN likes l ON u.id = l.id_user WHERE l.id_user IN (SELECT id_user FROM likes WHERE id_like_user = " . $id . " AND id_user IN (SELECT id_like_user FROM likes WHERE id_user = " . $id . ")) GROUP BY u.id");
+		$stmt->execute();
+		return $stmt->rowCount();
+	}
+
+	private static function setRating($id, $rating)
+	{
+		$pdo = DataBase::getConnection();
+
+		$stmt = $pdo->prepare("UPDATE rating SET user_rating = :user_rating WHERE id_user = :id_user");
+		$stmt->execute([
+			':id_user' => $id,
+			':user_rating' => $rating
+		]);
 	}
 }

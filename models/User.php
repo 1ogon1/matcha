@@ -136,6 +136,17 @@ class User
 		return false;
 	}
 
+	private static function createRatingRow($id)
+	{
+		$pdo = DataBase::getConnection();
+
+		$stmt = $pdo->prepare("INSERT INTO rating (id_user, user_rating) VALUES (?, ?)");
+		$stmt->execute([
+			$id,
+			0
+		]);
+	}
+
 	public static function register_ok($user)
 	{
 		$passwd = hash("whirlpool", $user['password']);
@@ -156,6 +167,7 @@ class User
 		]);
 		$id = $pdo->lastInsertId();
 		self::addInfo($id);
+		self::createRatingRow($id);
 		self::sendMail($user['email'], $user['login']);
 		return $result;
 	}

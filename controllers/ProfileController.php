@@ -83,6 +83,7 @@ class ProfileController
 		}
 		if ($errors == false) {
 			Profile::updateInformation($user);
+			$rating = Profile::getRatingById($_COOKIE['id_user']);
 			echo 'Зміни збережено';
 //            echo $user['address'];
 		} else {
