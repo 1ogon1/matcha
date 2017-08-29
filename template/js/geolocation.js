@@ -8,6 +8,8 @@ navigator.geolocation.getCurrentPosition(function (position) {
 	var lat = position.coords.latitude;
 	var lng = position.coords.longitude;
 	var myLatLng = {lat: lat, lng: lng};
+	console.log(myLatLng);
+	console.log($('#map').data('text'));
 	$.ajax({
 		url: "/setAddress",
 		type: "POST",

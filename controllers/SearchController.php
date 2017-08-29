@@ -12,46 +12,56 @@ class SearchController
 		Profile::setOnline();
 		$status = Profile::setStatus();
 		$newMessage = Message::newMessage();
+		Search::delSearchTag();
 
 
 		require_once ROOT . '/views/search/index.php';
 		return true;
 	}
 
+	public function actionAddSearchTag()
+	{
+		$res = explode(' ', $_POST['tag']);
+		$param = array_filter($res, "Search::ft_true");
+		if ($param) {
+			$pdo = DataBase::getConnection();
+
+			$stmt = $pdo->prepare("SELECT * FROM search_tag");
+			$stmt->execute();
+			if ($stmt->rowCount()) {
+				$stmt = $pdo->prepare('DELETE FROM search_tag');
+				$stmt->execute();
+
+				$i = 0;
+				while ($param) {
+					$stmt = $pdo->prepare("INSERT INTO search_tag (tag) VALUES (:tag)");
+
+					$stmt->bindParam(':tag', $param[$i], PDO::PARAM_STR);
+					$stmt->execute();
+					$i++;
+				}
+			} else {
+				$i = 0;
+				while ($param) {
+					$stmt = $pdo->prepare("INSERT INTO search_tag (tag) VALUES (:tag)");
+
+					$stmt->bindParam(':tag', $param[$i], PDO::PARAM_STR);
+					$stmt->execute();
+					$i++;
+				}
+			}
+		}
+	}
+
 	public function actionSearchParams()
 	{
-		$params['name'] = ' ';
-		$params['surname'] = ' ';
-		$params['gender'] = 0;
-		$params['sex_pref'] = 0;
-		$params['sort'] = $_POST['sort'];
+		$params = Search::setParams($_POST);
 
-		if ($_POST['name'] != '') {
-			$params['name'] = $_POST['name'];
-		}
-		if ($_POST['surname'] != '') {
-			$params['surname'] = $_POST['surname'];
-		}
-		if ($_POST['age1'] && $_POST['age2']) {
-
-			$params['age1'] = date((date('Y') - $_POST['age1']) . '-m-d');
-			$params['age2'] = date((date('Y') - $_POST['age2']) . '-m-d');
-			$pdo = DataBase::getConnection();
-			$res = 0;
-			if ($params['sort'] == 0) {
-				$stmt = $pdo->prepare("SELECT id, login, avatar FROM user WHERE id IN (SELECT id_user FROM user_info WHERE birthday BETWEEN :age2 AND :age1)");
-				$stmt->bindParam(':age2', $params['age2'], PDO::PARAM_STR);
-				$stmt->bindParam(':age1', $params['age1'], PDO::PARAM_STR);
-				$stmt->execute();
-				$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-			}
-			foreach ($res as $row) {
-				$result['avatar'] = $row['avatar'];
-				$result['id'] = $row['id'];
-				echo "<img src='" . $row['avatar'] . "' style='width: 100px; height: 120px'>" . "<p><a href='/profile/" . $row['avatar'] . "'>" . $row['login'] . "</a></p>";
-			}
+		if ($params['sort'] != 0) {
+			Search::searchWithSort($params);
 		} else {
-
+			Search::searchWithoutSort($params);
 		}
+
 	}
 }

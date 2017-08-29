@@ -4,7 +4,7 @@
 	</div>
 
 	<ul class="nav nav-pills href">
-		<li><a href="/profile/<?php echo $_COOKIE['id_user'] ?>">Моя сторінка</a></li>
+		<li><a href="/profile/<?php echo $_COOKIE['id_user']; ?>">Моя сторінка</a></li>
 		<!--		<li><a href="/message">Повідомлення</a></li>-->
 		<li class="">
 			<a href="/message">

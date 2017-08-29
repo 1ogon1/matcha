@@ -35,9 +35,13 @@
 						   placeholder="прізвище">
 				</div>
 
-				<div class="form-group">
-					<label class="sr-only" for="s_tag">Email</label>
-					<input value="" name="tag" type="text" class="form-control" id="s_tag" placeholder="тег">
+				<div class="has-feedback input-group mrg_bot">
+					<span class="input-group-addon">#</span>
+					<input name="tag" id="s_tag" type="text" class="form-control">
+					<span class="glyphicon form-control-feedback" style="right: 75px"></span>
+					<span class="input-group-btn">
+                        <input class="btn btn-default" id="add-tag" data-text="s_tag" type="submit" value="Додати">
+                    </span>
 				</div>
 
 				<div class="form-group">
@@ -58,14 +62,26 @@
 					</select>
 				</div>
 
-				<div class="form-group">
+				<p>Вік</p>
+				<div class="form-group col-lg-6 col-sm-6 col-md-6 col-xs-6">
 					<label class="sr-only" for="age1">Email</label>
-					<input value="" name="age1" type="text" class="form-control" id="s_age1" placeholder="вік від">
+					<input value="" name="age1" type="text" class="form-control" id="s_age1" placeholder="від">
 				</div>
 
-				<div class="form-group">
+				<div class="form-group col-lg-6 col-sm-6 col-md-6 col-xs-6">
 					<label class="sr-only" for="age2">Email</label>
-					<input value="" name="age2" type="text" class="form-control" id="s_age2" placeholder="вік до">
+					<input value="" name="age2" type="text" class="form-control" id="s_age2" placeholder="до">
+				</div>
+
+				<p>Рейтинг</p>
+				<div class="form-group col-lg-6 col-sm-6 col-md-6 col-xs-6">
+					<label class="sr-only" for="age1">Email</label>
+					<input value="" name="age1" type="text" class="form-control" id="s_reit1" placeholder="від">
+				</div>
+
+				<div class="form-group col-lg-6 col-sm-6 col-md-6 col-xs-6">
+					<label class="sr-only" for="age2">Email</label>
+					<input value="" name="age2" type="text" class="form-control" id="s_reit2" placeholder="до">
 				</div>
 
 				<p>Відсортувати по:</p>

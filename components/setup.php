@@ -28,6 +28,7 @@ class DataBase
 		self::createLikeUser();
 		self::crateChat();
 		self::createRating();
+		self::searchTag();
 	}
 
 	private static function createDataBase()
@@ -108,5 +109,12 @@ class DataBase
 		$pdo = self::getConnection();
 
 		$pdo->exec(SQL_CREATE_TABLE_RATING);
+	}
+
+	private static function searchTag()
+	{
+		$pdo = self::getConnection();
+
+		$pdo->exec(SQL_CREATE_SEARCH_TAG_TABLE);
 	}
 }

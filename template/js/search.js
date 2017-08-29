@@ -9,6 +9,8 @@ $('#search').click(function () {
 			sex_pref: $('#s_sex_pref option:selected').val(),
 			age1: $('#s_age1').val(),
 			age2: $('#s_age2').val(),
+			reit1: $('#s_reit1').val(),
+			reit2: $('#s_reit2').val(),
 			sort: $('input:checked').val()
 		};
 	} else {
@@ -19,6 +21,8 @@ $('#search').click(function () {
 			sex_pref: $('#s_sex_pref option:selected').val(),
 			age1: $('#s_age1').val(),
 			age2: $('#s_age2').val(),
+			reit1: $('#s_reit1').val(),
+			reit2: $('#s_reit2').val(),
 			sort: 0
 		};
 	}
@@ -29,4 +33,20 @@ $('#search').click(function () {
 		$('#search_result').append(data);
 	});
 	console.log(params);
+});
+
+$('#add-tag').click(function () {
+	var param = {
+		tag: $('#s_tag').val()
+	};
+	$.post('/addSearchTag', param, function () {
+	});
+	// console.log('тег додано');
+	$('#s_tag').parent().addClass('has-success');
+	$('.glyphicon').addClass('glyphicon-ok');
+});
+
+$('#s_tag').focus(function () {
+	$('#s_tag').parent().removeClass('has-success');
+	$('.glyphicon').removeClass('glyphicon-ok');
 });

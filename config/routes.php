@@ -1,6 +1,5 @@
 <?php
 return array(
-
 	'getAddress' => 'profile/getAddress',
 	'setAddress' => 'profile/setAddress',
 	'checkNew' => 'message/checkNew',
@@ -22,6 +21,7 @@ return array(
 	'delete' => 'profile/delete',
 	'set' => 'profile/avatar',
 	'save' => 'profile/save',
+	'addSearchTag' => 'search/addSearchTag',
 	'searchParams' => 'search/searchParams',
 	'search' => 'search/index',
 	'addtag' => 'profile/addtag',
