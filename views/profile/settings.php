@@ -5,16 +5,27 @@
 		<?php require_once(ROOT . '/views/layout/menu.php'); ?> <!-- header -->
 
 		<div class="row">
-			<div class="col-lg-6 col-lg-offset-1">
+			<div class="col-lg-4 col-lg-offset-1">
+
 				<h1>Додати фото <span class="foto_index">(max 5)</span></h1>
+				<?php echo '<div style="color: red; font-size: 20px;">' . $error . '</div>'; ?>
 				<form id="uploadform" name="uploadform" action="" method="post" enctype="multipart/form-data">
-					<input class="btn btn-warning" type="file" name="file" id="file" accept="image/*" <?php if ($maxImage >= 5) {echo 'disabled';}?>>
-					<input class="btn btn-success" type="submit" name="upload" id="upload" value="Додати" <?php if ($maxImage >= 5) {echo 'disabled';}?>>
+					<input class="btn btn-warning" type="file" name="file" id="file"
+						   accept="image/*" <?php if ($maxImage >= 5) {
+						echo 'disabled';
+					} ?>>
+					<input class="btn btn-success" type="submit" name="upload" id="upload"
+						   value="Додати" <?php if ($maxImage >= 5) {
+						echo 'disabled';
+					} ?>>
 					<input class="btn btn-danger" type="submit" id="cancel" value="Скасувати">
 				</form>
 				<div class="preview_img">
 					<img id="preview" src=""">
 				</div>
+			</div>
+			<div class="col-lg-3">
+
 			</div>
 		</div>
 		<div class="row">
@@ -32,7 +43,7 @@
 				<?php endforeach; ?>
 
 				<div class="msg_ava"></div>
-				<a href="/more">Змінити налаштування профілю</a>
+				<a class="btn btn-success" href="/more">Змінити налаштування профілю</a>
 			</div>
 			<div class="col-lg-4 col-lg-offset-0 hidden-md hidden-xs hidden-sm">
 				<img id="image" src="" width="500px" height="800"

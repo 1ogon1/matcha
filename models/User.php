@@ -3,6 +3,13 @@
 class User
 {
 
+	public static function isGuest()
+	{
+		if (!$_COOKIE['id_user']) {
+			header("location:/");
+		}
+	}
+
 	public static function sendNewPW($email, $passwd)
 	{
 		$login = '';

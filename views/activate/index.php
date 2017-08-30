@@ -27,7 +27,7 @@
 		<div class="row">
 			<div class="form-horizontal">
 				<h2 class="header col-sm-offset-1">Активація аккаунта!</h2>
-				<div class="mes"></div>
+				<div class="mes col-sm-offset-1"></div>
 				<div class="form-group">
 					<div class="col-sm-offset-1 col-sm-2">
 						<input name="code" type="text" class="form-control" id="code"

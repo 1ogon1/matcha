@@ -44,7 +44,7 @@
 							$now = new DateTime('now');
 							$last = new DateTime($rows['birthday']);
 							$status = date_diff($now, $last);
-							echo $status->format('%Y%') . ' роки';
+							echo 'Вік: '.$status->format('%Y%');
 							?>
 						</p>
 						<p>

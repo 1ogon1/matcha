@@ -9,6 +9,7 @@ class MessageController
 {
 	public function actionIndex()
 	{
+		User::isGuest();
 		Profile::setOnline();
 		$status = Profile::setStatus();
 		$users = Message::getUsers();

@@ -32,7 +32,7 @@ $('#search').click(function () {
 		$('#search_result').empty();
 		$('#search_result').append(data);
 	});
-	console.log(params);
+	// console.log(params);
 });
 
 $('#add-tag').click(function () {

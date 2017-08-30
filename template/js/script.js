@@ -169,7 +169,7 @@ $('.btn').on('click', function () {
 					$('#error').text('такий тег вже додано');
 					$('#input10').parent().addClass('has-error');
 					$('.glyphicon').addClass('glyphicon-remove');
-					console.log('такий тег вже додано');
+					// console.log('такий тег вже додано');
 				} else {
 					$('#tag').append(data);
 					$('#input10').parent().addClass('has-success');

@@ -55,9 +55,12 @@ const SQL_CREATE_TABLE_VISITOR = '
         id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
         id_user INT(10) NOT NULL,
         id_visitor INT(10) NOT NULL,
+        type INT(1) NOT NULL,
         status INT(1) NOT NULL
     )
 ';
+
+//id_user, id_visitor, type, status
 
 const SQL_CREATE_TABLE_TAG = '
     CREATE TABLE IF NOT EXISTS tag (

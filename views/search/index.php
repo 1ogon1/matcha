@@ -6,15 +6,10 @@
 
 		<div class="row">
 			<div class="col-lg-3">
-
+				<h1>Рекомендовані</h1>
 				<?php
-				$pdo = DataBase::getConnection();
-				$stmt = $pdo->prepare("SELECT * FROM user");
-				$stmt->execute();
-				$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-				foreach ($res as $row) {
-					echo "<img src='$row[avatar]' style='width: 100px; height: 120px'>";
-					echo "<p><a href='/profile/$row[id]'>$row[login]</a></p>";
+				foreach ($recommended as $row) {
+					echo "<img src='" . $row['avatar'] . "' style='width: 100px; height: 120px'>" . "<p><a href='/profile/" . $row['id'] . "'>" . $row['login'] . "</a></p>";
 				}
 				?>
 
@@ -115,6 +110,7 @@
 			</div>
 
 			<div class="col-lg-3">
+				<h1>Результат пошуку</h1>
 				<div id="search_result">
 
 				</div>

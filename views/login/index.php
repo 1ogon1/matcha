@@ -19,7 +19,7 @@
 				</div>
 				<input id="sign_in" name="sign_in" type="submit" class="btn btn-warning" value="Sign in">
 			</div>
-			<div class=""><a href="/reset" id="reset">Забув пароль</a><span class="log_mes"></span></div>
+			<div class=""><a href="/reset" id="reset">Забув пароль </a><span class="log_mes"></span></div>
 
 		</div>
 	</div> <!-- header -->
@@ -28,8 +28,8 @@
 
 		<div class="col-lg-4 col-lg- col-md-5 col-sm-5 col-lg-offset-1">
 			<h3 class="header col-sm-offset-3">Ви вперше у нас?</h3>
+			<div class="mes col-sm-offset-3"></div>
 			<div class="form-horizontal">
-				<div class="mes"></div>
 				<div class="form-group has-feedback">
 					<label for="login" class="col-sm-3 control-label">Логін</label>
 					<div class="col-sm-9 ">
@@ -81,19 +81,6 @@
 				</div>
 			</div>
 		</div> <!-- register form -->
-
-		<div class="col-lg-5 col-md-5 col-sm-5 col-xs-9 col-lg-offset-1 col-sm-offset-0">
-			<h3>Відгуки про нас</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam asperiores assumenda consequuntur
-				cupiditate dolorum earum est ex impedit, in maiores molestias, nihil non, odio pariatur sequi sunt
-				suscipit ut? Fugiat.</p>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam asperiores assumenda consequuntur
-				cupiditate dolorum earum est ex impedit, in maiores molestias, nihil non, odio pariatur sequi sunt
-				suscipit ut? Fugiat.</p>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam asperiores assumenda consequuntur
-				cupiditate dolorum earum est ex impedit, in maiores molestias, nihil non, odio pariatur sequi sunt
-				suscipit ut? Fugiat.</p>
-		</div> <!-- feedback -->
 
 	</div> <!-- main block -->
 </div>

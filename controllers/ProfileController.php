@@ -9,6 +9,7 @@ class ProfileController
 {
 	public function actionIndex($id)
 	{
+		User::isGuest();
 		$time = time();
 		$user = Profile::showUser($id);
 		self::actionOnline();
@@ -31,6 +32,7 @@ class ProfileController
 
 	public function actionSettings()
 	{
+		User::isGuest();
 		$personal_info = null;
 		self::actionOnline();
 		$user = Profile::showUser($_COOKIE['id_user']);
@@ -38,6 +40,7 @@ class ProfileController
 		$status = Profile::setStatus();
 		$newMessage = Message::newMessage();
 		$maxImage = Profile::countImage();
+		$error = '';
 
 		if (isset($_POST['upload'])) {
 			$dir = '/template/foto/';
@@ -53,7 +56,7 @@ class ProfileController
 					header('location:/settings');
 				}
 			} else {
-				echo 'error file';
+				$error = 'Сталась помилка';
 			}
 		}
 
@@ -256,6 +259,7 @@ class ProfileController
 
 	public function actionMore()
 	{
+		User::isGuest();
 		self::actionOnline();
 		$status = Profile::setStatus();
 		$user = Profile::showUser($_COOKIE['id_user']);

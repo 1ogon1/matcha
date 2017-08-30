@@ -3,15 +3,18 @@
 require_once ROOT . '/models/Search.php';
 require_once ROOT . '/models/Profile.php';
 require_once ROOT . '/models/Message.php';
+require_once ROOT . '/models/User.php';
 require_once ROOT . '/config/sql.php';
 
 class SearchController
 {
 	public function actionIndex()
 	{
+		User::isGuest();
 		Profile::setOnline();
 		$status = Profile::setStatus();
 		$newMessage = Message::newMessage();
+		$recommended = Search::recommended();
 		Search::delSearchTag();
 
 
@@ -50,6 +53,11 @@ class SearchController
 					$i++;
 				}
 			}
+		} else {
+			$pdo = DataBase::getConnection();
+
+			$stmt = $pdo->prepare('DELETE FROM search_tag');
+			$stmt->execute();
 		}
 	}
 
@@ -57,11 +65,11 @@ class SearchController
 	{
 		$params = Search::setParams($_POST);
 
-		if ($params['sort'] != 0) {
-			Search::searchWithSort($params);
-		} else {
+//		if ($params['sort'] != 0) {
+//			Search::searchWithSort($params);
+//		} else {
 			Search::searchWithoutSort($params);
-		}
+//		}
 
 	}
 }
